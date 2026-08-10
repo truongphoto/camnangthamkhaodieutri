@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CẨM NANG THAM KHẢO ĐIỀU TRỊ – Ngô Quang Trường</title>
+    <style>
+        :root { --primary: #006b8c; --secondary: #007bb5; --bg: #f0f4f8; --text: #2c3e50; --border: #d3e0ea; --accent: #ff6b6b; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        body { background: var(--bg); color: var(--text); padding: 20px; line-height: 1.6; font-size: 15px; }
+        
+        /* Container & Header */
+        .container { max-width: 1440px; margin: 0 auto; background: #ccd9db; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.05); padding: 25px; }
+        .header { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--border); padding-bottom: 20px; margin-bottom: 25px; flex-wrap: wrap; gap: 20px; }
+        .brand { display: flex; align-items: center; gap: 25px; }
+        
+        /* Chỉnh lại Logo theo yêu cầu */
+        .brand img { width: 180px; height: 180px; object-fit: contain; border-radius: 8px; border: 1px solid #eee; padding: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        
+        .brand-text h1 { color: var(--primary); font-size: 1.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; line-height: 1.2; }
+        .brand-text p { color: #666; font-size: 1.05rem; font-weight: 500; }
+        
+        .author-box { background: #f8fbff; padding: 15px 20px; border-radius: 8px; border-left: 4px solid var(--secondary); text-align: right; min-width: 250px; }
+        .author-box h3 { color: var(--primary); margiFn-bottom: 5px; font-size: 1.15rem; }
+        .author-box p { font-size: 0.95rem; color: #555; margin-bottom: 2px; font-weight: 500; }
+        .author-box strong { color: var(--accent); font-size: 1.05rem; }
+
+        /* Search */
+        .search-area { display: flex; gap: 15px; margin-bottom: 25px; }
+        .search-area input { flex: 1; padding: 12px 20px; border: 2px solid var(--border); border-radius: 8px; font-size: 1.05rem; transition: 0.2s; }
+        .search-area input:focus { border-color: var(--secondary); outline: none; box-shadow: 0 0 0 3px rgba(0,123,181,0.1); }
+        .search-area button { padding: 12px 30px; background: var(--secondary); border: none; border-radius: 8px; color: white; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .search-area button:hover { background: var(--primary); }
+
+        /* Layout */
+        .main-content { display: flex; gap: 30px; align-items: flex-start; }
+        
+        /* Sidebar Menu */
+        .sidebar { flex: 0 0 280px; background: #fdfdfd; border: 1px solid var(--border); border-radius: 8px; padding: 15px; position: sticky; top: 20px; max-height: calc(100vh - 40px); overflow-y: auto; }
+        .sidebar h2 { font-size: 1.2rem; color: var(--primary); margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border); text-transform: uppercase; }
+        .category-list { list-style: none; }
+        .category-list li { padding: 12px 15px; margin-bottom: 6px; border-radius: 6px; cursor: pointer; font-weight: 600; color: #444; transition: 0.2s; background: #f9f9f9; border-left: 3px solid transparent; }
+        .category-list li:hover { background: #eef5f9; border-left-color: var(--secondary); }
+        .category-list li.active { background: var(--secondary); color: white; border-left-color: var(--primary); }
+
+        .content-area { flex: 1; min-width: 0; }
+        
+        /* Grid Disease */
+        .disease-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .disease-card { background: white; border: 1px solid var(--border); padding: 20px; border-radius: 8px; cursor: pointer; transition: 0.2s; border-top: 4px solid var(--secondary); }
+        .disease-card:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.06); }
+        .disease-card h3 { color: var(--primary); font-size: 1.15rem; margin-bottom: 8px; }
+        .disease-card p { font-size: 0.9rem; color: #666; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+        /* Detail Panel */
+        .detail-panel { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 25px; display: none; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .detail-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+        .detail-header h2 { color: var(--primary); font-size: 1.6rem; }
+        .btn-back { background: #f0f4f8; color: var(--primary); border: 1px solid var(--border); padding: 8px 18px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-back:hover { background: var(--border); }
+        
+        .info-box { background: #fffcf5; border-left: 4px solid #f39c12; padding: 15px; border-radius: 0 6px 6px 0; margin-bottom: 20px; }
+        .info-box.treatment { background: #f4fdf8; border-left-color: #27ae60; margin-top: 15px; }
+        .info-box h4 { margin-bottom: 5px; color: #333; font-size: 1.05rem; }
+
+        /* Patient Tabs (Cấp 1) */
+        .section-title { color: var(--primary); margin: 25px 0 10px; font-size: 1.2rem; font-weight: bold; text-transform: uppercase; border-bottom: 2px dashed var(--border); padding-bottom: 8px; }
+        .patient-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .patient-btn { background: white; border: 1px solid #ccc; color: #555; padding: 10px 18px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 0.95rem; }
+        .patient-btn:hover { border-color: var(--secondary); color: var(--secondary); background: #f8fbff; }
+        .patient-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+
+        /* Prescription Tabs (Cấp 2 - Đơn 1, Đơn 2...) */
+        .prescription-container { background: #fafdfd; border: 1px solid var(--border); border-radius: 8px; padding: 20px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.02); }
+        .prescription-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+        .prescription-btn { background: transparent; border: none; color: #777; padding: 8px 15px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 1.05rem; border-bottom: 3px solid transparent; }
+        .prescription-btn:hover { color: var(--secondary); }
+        .prescription-btn.active { color: var(--secondary); border-bottom-color: var(--secondary); }
+
+        /* Drug List */
+        .drug-list { list-style: none; display: none; animation: fadeIn 0.2s; }
+        .drug-list.active { display: block; }
+        .drug-list li { background: white; border: 1px solid #e1e8ed; margin-bottom: 4px; padding: 6px 10px; border-radius: 4px; display: flex; align-items: center; font-size: 1rem; font-weight: 500; color: #2c3e50; }
+        .drug-list li::before { content: '💊'; margin-right: 6px; font-size: 1rem; }
+        
+        .footer { text-align: center; padding-top: 20px; margin-top: 40px; border-top: 1px solid var(--border); color: #7f8c8d; font-weight: 500; font-size: 0.9rem; }
+
+        @media (max-width: 900px) {
+            .main-content { flex-direction: column; }
+            .sidebar { flex: 1 1 100%; position: static; max-height: none; margin-bottom: 20px; }
+            .header { flex-direction: column; align-items: center; text-align: center; }
+            .brand { flex-direction: column; gap: 15px; }
+            .author-box { text-align: center; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="brand">
+            <!-- Tích hợp chính xác logo theo yêu cầu -->
+            <img src="logo.png" alt="Logo Y Tế">
+            <div class="brand-text">
+                <h1>CẨM NANG THAM KHẢO ĐIỀU TRỊ</h1>
+                <p>Dược sĩ – Bác sĩ – Nhân viên y tế</p>
+            </div>
+        </div>
+        <div class="author-box">
+            <h3>Tác giả: Ngô Quang Trường</h3>
+            <p>Phần mềm nội bộ nhóm Y-Dược Tiền Giang</p>
+            <p>Liên hệ tư vấn:</p>
+            <p>Hotline: <strong>0829.076979</strong></p>
+            <p>Zalo: <span class="zalo" style="color:#01757c; font-weight:bold;">truongphotoart</span></p>
+        </div>
+    </div>
+
+    <div class="search-area">
+        <input type="text" id="searchInput" placeholder="🔍 Nhập tên bệnh hoặc triệu chứng để tìm kiếm nhanh..." onkeyup="handleSearch()">
+        <button onclick="handleSearch()">Tìm Kiếm</button>
+    </div>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <h2>🏥 NHÓM BỆNH</h2>
+            <ul class="category-list" id="categoryList">
+                <!-- JS render -->
+            </ul>
+        </div>
+
+        <div class="content-area">
+            <div id="gridContainer" class="disease-grid">
+                <!-- JS render -->
+            </div>
+            
+            <div id="detailPanel" class="detail-panel">
+                <div class="detail-header">
+                    <h2 id="dName">Tên Bệnh</h2>
+                    <button class="btn-back" onclick="hideDetail()">↩ Quay Lại</button>
+                </div>
+                
+                <div class="info-box">
+                    <h4>🩺 Triệu chứng lâm sàng:</h4>
+                    <p id="dSymptoms"></p>
+                </div>
+                <div class="info-box treatment">
+                    <h4>📝 Nguyên tắc điều trị chung:</h4>
+                    <p id="dTreatment"></p>
+                </div>
+
+                <div class="section-title">Phác đồ điều trị theo đối tượng</div>
+                <div class="patient-tabs" id="patientTabs">
+                    <!-- JS render -->
+                </div>
+
+                <div class="prescription-container" id="prescriptionContainer" style="display:none;">
+                    <div class="prescription-tabs" id="donTabs">
+                        <!-- JS render Đơn 1, Đơn 2 -->
+                    </div>
+                    <div id="donContentArea">
+                        <!-- JS render nội dung đơn -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 Bản quyền phần mềm nội bộ thuộc về Ngô Quang Trường(TRƯỜNG GPP).<br>
+        Lưu ý: Phần mềm mang tính chất tham khảo có hệ thống, tuyệt đối tuân thủ nguyên tắc chuyên môn y khoa.
+               tài liệu tham khảo "BỘ MÔN THỰC HÀNH BÁN THUỐC " Thạc sĩ. Tiến Long
+    </div>
+</div>
+
+<script>
+    // Toàn bộ cơ sở dữ liệu đã được tổng hợp không lược bỏ (54+ bệnh)
+    const db = [
+    {
+        "id": "ho_hap",
+        "name": "Bệnh Đường Hô Hấp",
+        "diseases": [
+            {
+                "n": "Viêm họng nhẹ",
+                "s": "Nuốt nước bọt thấy đau, sờ vào cổ thấy nóng nhẹ, có chút đờm.",
+                "t": "Kháng sinh nhóm Betalactame + chống viêm nhẹ + giảm đau (trong nhóm giảm đau hạ sốt) + giảm ho long đờm dạng siro, viên.",
+                "p": {
+                    "Người bình thường": [
+                        ["Azithromycin 500mg 1 viên/1 lần x 3 ngày", "Alpha choay 5mg 4 viên/2 lần", "Panadol extra 500mg 4 viên/2 lần", "Coderforte 4 viên/2 lần"],
+                        ["Clarythromycin 500mg 2 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Patamol 500mg 4 viên/2 lần", "Methorphan 500mg 4 viên/2 lần"],
+                        ["Erythromycin 500mg 2 viên/2 lần", "Lysozime 90mg 4 viên/2 lần", "Paracetamol 500mg 4 viên/2 lần", "Coderforte 4 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Hapacol 4 viên/2 lần", "Ho bảo thanh siro 15ml/3 lần"],
+                        ["Cephadroxin 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Panadol 4 viên/2 lần", "Mật ong cúc hoa 15ml/3 lần"],
+                        ["Augmentin 625mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Paracetamol 500mg 4 viên/2 lần", "Bạch ngân PV siro 20ml/lần x3 lần/ngày"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Clarythromycin 500mg 2 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Paracetamol 500mg 4 viên/2 lần", "Ho badex 4 viên/2 lần"],
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Lysozym 90mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Metheophan 500mg 4 viên/2 lần"],
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Terpin Dexmethorphan 4 viên/2 lần"],
+                        ["Clarythromycin 500mg 2 viên/2 lần", "Lysozime 90mg 4 viên/2 lần", "Panadol 500mg 4 viên/2 lần", "Pharcotex 4 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Cephadroxim 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Efferalgan sủi 500mg 1 viên/1 lần cách 4-6h", "Coderforte 4 viên/2 lần"],
+                        ["Cefuroxim 500mg 2 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Efferalgan codein 500mg 4 viên/2 lần", "Ho badex 4 viên/2 lần"],
+                        ["Cefuroxim 500mg 2 viên/2 lần", "Lysozime 90mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Pharcotex 4 viên/2 lần"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Cefuroxim 250mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Hapacol 2 viên/2 lần", "Autusin siro 15ml/3 lần"],
+                        ["Azithromycin 250mg 2 viên/2 lần", "Seratiol speptid 10mg 2 viên/2 lần", "Efferalgan 250mg 2 viên/2 lần", "Ho badex 2 viên/2 lần"],
+                        ["Cefixime 100mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Patamol 500mg 2 viên/2 lần", "Terpin Codein 2 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Viêm họng nặng",
+                "s": "Hắt hơi, sổ mũi, ngạt mũi, ho nhiều, đờm nhiều, sốt trên 38,5 độ, người mệt mỏi.",
+                "t": "Kháng sinh các nhóm + chống viêm corticoid + giảm đau hạ sốt + kháng Histamin + Ho giảm mạnh, long đờm + rửa mũi, xịt mũi.",
+                "p": {
+                    "Người bình thường": [
+                        ["Erythromycin 500mg 2 viên/2 lần", "Prednisolon 5mg 4 viên/2 lần", "Panadol Extra 500mg 4 viên/2 lần", "Alimemazin 5mg 4 viên/2 lần", "Coderforte 4 viên/2 lần", "Sterimax rửa mũi", "Coldi-B chữa viêm"],
+                        ["Clarythromycin 500mg 4 viên/2 lần", "Bethamethasol 5mg 4 viên/2 lần", "Patamol 500mg 4 viên/2 lần", "Cetirizin 10mg 2 viên/2 lần", "Hobadex 4 viên/2 lần", "Xisat rửa mũi", "Naphazolin chữa viêm"],
+                        ["Ciprofloxacin 500mg 2 viên/2 lần", "Prednisolon 5mg 4 viên/2 lần", "Paracetamol 500mg 4 viên/2 lần", "Cetirizin 10mg 2 viên/2 lần", "Cordeforte 4 viên/2 lần", "Rửa mũi + chữa viêm", "Homtamin 2 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Panadol 500mg 4 viên/2 lần", "Loratydyl 10mg 2 viên/2 lần", "Họ bảo thanh Siro 15ml/3 lần", "Muối sinh lý 0,9% rửa mũi", "Thông xoang tán chữa viêm"],
+                        ["Cephalexin 500mg 4 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Loratydyl 10mg 2 viên/2 lần", "Cúc hoa mật ong siro 15ml/3 lần", "Vesim rửa mũi", "Ostrivin chữa viêm"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Clarythromycin 500mg 4 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Patamol 500mg 4 viên/2 lần", "Peritol 4mg 4 viên/2 lần", "Ho badex 4 viên/2 lần", "Xisat rửa mũi", "Clarytyl chữa viêm"],
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Lysozim 90mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Cetirizin 10mg 2 viên/2 lần", "Methorphan 500mg 4 viên/2 lần", "Sofiner rửa mũi", "Hadocort D chữa viêm"],
+                        ["Amoxccillin 500mg 4 viên/2 lần + Clarythromycin 500mg 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Panadol 500mg 2 viên/2 lần", "Clorpheniramin 4mg 4 viên/2 lần", "Hobadex 4 viên/2 lần", "Rửa mũi + chữa viêm", "Bổ hoa quả 2 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Cephadroxin 500mg 4 viên/2 lần", "Prednisolon 5mg 4 viên/2 lần", "Efferalgan sủi 500mg 1 viên/1 lần cách 4-6h", "Cetirizin 10mg 2 viên/2 lần", "Coderforte 4 viên/2 lần", "Xisat rửa mũi", "Coldi-B chữa viêm"],
+                        ["Cefuroxim 500mg 4 viên/2 lần", "Methyl prednisolon 16mg 2 viên/2 lần", "Efferalgan codein 500mg 4 viên/2 lần", "Peritol 4mg 4 viên/2 lần", "Hobadex 4 viên/2 lần", "Muối sinh lý 0,9% rửa mũi", "Hadocort D chữa viêm"],
+                        ["Cefuroxim 500mg 2 viên/2 lần", "Lysozime 90mg 4 viên/2 lần", "Panadol 500mg 4 viên/2 lần", "Loratadyl 10mg 2 viên/2 lần", "Pharcotex 4 viên/2 lần", "Rửa mũi + xịt chữa viêm", "Pharmaton 2 viên/2 lần"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Cefuroxim 250mg 2 viên/2 lần", "Bethamethason 5mg 2 viên/2 lần", "Hapacol 500mg 1 viên/2 lần", "Clorpheniramin 4mg 1 viên/1 lần", "Eugica siro 15ml/3 lần", "Muối sinh lý 0,9% rửa mũi", "Ostrivin chữa viêm"],
+                        ["Azithromycin 250mg 2 viên/2 lần", "Dexamethason 5mg 2 viên/2 lần", "Efferalgan 250mg 1 viên/1 lần", "Pertiol 4mg 2 viên/2 lần", "Ho PH siro 15ml/3 lần", "Sterimax rửa mũi", "Hacodort D chữa viêm"],
+                        ["Augmentin 625mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Patamol 500mg 2 viên/2 lần", "Clorpheniramin 2mg 2 viên/2 lần", "Eugica 4 viên/2 lần", "Rửa mũi + chữa viêm", "Pharmaton siro 10ml/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Bệnh hen phế quản",
+                "s": "Khò khè, cò cử, ho nặng tiếng, đờm nhiều, sốt, mệt.",
+                "t": "Kháng sinh hạng nặng + chống viêm nặng + giảm ho mạnh + giãn phế quản + thuốc bổ + thuốc liệt kê thêm: hạ sốt, giảm đau.",
+                "p": {
+                    "Người bình thường": [
+                        ["Ofloxacin 200mg 2 viên/2 lần", "Methyl prednisolon 4mg 4 viên/2 lần", "Coderford 4 viên/2 lần", "Salbutamol 4mg 2 viên/2 lần", "Acetyl cystein 200mg 4 viên/2 lần", "Pharmaton 2 viên/2 lần"],
+                        ["Ofloxacin 200mg 2 viên/2 lần", "Dexamethason 5mg 4 viên/2 lần", "Coderforte 4 viên/2 lần", "Salbutamol 4mg 2 viên/2 lần", "Homtamin 2 viên/2 lần", "Paracetamol 500mg 4 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Klamentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Bạch long thủy siro 15ml/3 lần", "Ventolin xịt", "Amoroxon 30mg 4 viên/2 lần", "Provital 2 viên/2 lần"],
+                        ["Augmentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Ho bảo thanh 15ml/2 lần", "Bạch long thủy sr 15ml/2 lần", "Procare 2 viên/2 lần", "Patamol 500mg 4 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Clarythromycin 500mg 2 viên/2 lần", "Seratiol Speptid 10mg 4 viên/2 lần", "Metheophan 4 viên/2 lần", "Salbutamol 4mg 2 viên/2 lần", "Acytyl Cystein 200mg 4 viên/2 lần", "Homtasun 2 viên/2 lần"],
+                        ["Amocixilin 500mg 4 viên/2 lần", "Clarythromycin 500mg 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Terpin Dextromethorphan 4 viên/2 lần", "Salbutamol 4mg 2 viên/2 lần", "Bổ hoa quả 2 viên/2 lần", "Panadol 500mg 4 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Ciprofloxacil 500mg 2-4 viên/2 lần", "Bethamethanol 5mg 4 viên/2 lần", "Coderford 4 viên/2 lần", "Sabutamol 4mg 2 viên/2 lần", "Acytyl cystein 200mg 4 viên/2 lần", "Homtasun 2 viên/2 lần"],
+                        ["Cefuroxim 500mg 2 viên/2 lần", "Lysozine 90mg 4 viên/2 lần", "Pharcotex 4 viên/2 lần", "Salbutamol 4mg 2 viên/2 lần", "Bổ hoa quả 2 viên/2 lần", "Panadol 500mg 4 viên/2 lần"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Clary thromycin 250mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Ho bảo thanh siro 10ml/3 lần", "Brycannyl siro 10ml/3 lần", "Acemuc 200mg 2 viên/2 lần", "Bonikid siro 10ml/3 lần"],
+                        ["Klamentin 625mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Ho Bạch Ngân PV sr 7ml x 3 lần/ngày", "Bạch long thủy sr 4ml/2 lần", "Pharmaton sr 15ml/ngày", "Patamol 500mg 2 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Viêm thanh quản",
+                "s": "Khàn đặc tiếng, đờm nhiều, nói khi gắng sức.",
+                "t": "Kháng sinh nặng (Quinolon, Macrolid, Cephalosphorin TH3, kết hợp) + chống viêm Corticoid liều cao + long đờm tiêu đờm + thuốc ho + thuốc bổ.",
+                "p": {
+                    "Người bình thường": [
+                        ["Ciprofloxacin 500mg 2-4 viên/2 lần", "Bethamathansol 5mg 4 viên/2 lần", "Acytyl cystein 200mg 4 viên/2 lần", "Ho bảo thanh siro 15ml/3 lần", "Star ngậm", "Pharmaton 2 viên/2 lần"],
+                        ["Levofloxacin 500mg 2 viên/2 lần", "Prednisolon 5mg 4 viên/2 lần", "Ambroxol 300mg 4 viên/2 lần", "Ho PH", "Homtamin 2 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Clary thromycin 500mg 2 viên/2 lần", "Amoxccillin 500mg 4 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Ambroxol 300mg 4 viên/2 lần", "Ho đức thịnh siro 15ml/3 lần", "Euguca ngậm", "Homtamin sâm 2 viên/2 lần"],
+                        ["Amoxccillin 50mg 4 viên/2 lần", "Clarythomycin 500mg 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Bisorol 4 viên/2 lần", "Ho bổ phế", "Bổ hoa quả 2 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Klamentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Acemuc 200mg 4 viên/2 lần", "Mật ong cúc hoa siro 15ml/3 lần", "Quất – mật ong ngậm", "Thymodulin 80mg 2 viên/2 lần"],
+                        ["Klamentin 625mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Acetyl cyteine 200mg 4 viên/2 lần", "Autusin sr ho", "Obimin 2 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Ofloxacin 200mg 2 viên/2 lần", "Dexamethasol 5mg 4 viên/2 lần", "Exomuc 200mg 4g/2 lần", "Ho ma hạch siro 15ml/3 lần", "Bổ phế nam hà ngậm", "3B 2 viên/2 lần"],
+                        ["Cefdinir 300mg 2 viên/2 lần", "Bethamethasol 5mg 4 viên/2 lần", "Ambroxol 300mg 4 viên/2 lần", "Ho đức thịnh", "Pharmaton 2 viên/2 lần"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Cefixim 200mg 1 viên/1 lần", "Alpha choay 5mg 2 viên/2 lần", "Mitix 200mg 2 viên/2 lần", "Autusin siro 15ml/3 lần", "Bảo thanh ngậm", "Bonikidy 2 viên/2 lần"],
+                        ["Azithromycin 250mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Acetyl cyteine 200mg 2 viên/2 lần", "Slacka sr ho", "Thymokid 2 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Viêm họng hạt",
+                "s": "Ngứa họng, ho nhiều, ho rũ rượi, có tiền sử bệnh viêm họng hạt.",
+                "t": "Kháng sinh (Quinolon/Metronidazol/Biseptol/Batalactame) + chống viêm Corticoid liều cao + kháng Histamin + giảm ho mạnh + ngậm Biseptol.",
+                "p": {
+                    "Người bình thường": [
+                        ["Metronidazol 250mg 2 viên/2 lần", "Biseptol 450mg 4 viên/2 lần", "Clarythromycin 500mg 2 viên/2 lần", "Clorpheniramin 4mg 4 viên/2 lần", "Coderforte 4 viên/2 lần", "Methyl prednisolon 4mg 4 viên/2 lần"],
+                        ["Levofloxacil 500mg 2 viên/2 lần", "Dexmethasol 0,25mg 4 viên/2 lần", "Citicizin 10mg 2 viên/2 lần", "Coderforte 4 viên/2 lần", "Ngậm Biseptol"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Klamentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Loratadyl 10mg 2 viên/2 lần", "Biseptol 480mg ngậm 4 viên/2 lần", "Ho bảo thanh siro 15ml/3 lần"],
+                        ["Zinnat 500mg 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Lorotadyl 10mg 2 viên/2 lần", "Eugica 4 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Metronidazol 250mg 2 viên/2 lần", "Clarythromycin 500mg 2 viên/2 lần", "Biseptol 480mg 4 viên/2 lần", "Seration speptid 10mg 4 viên/2 lần", "Alimemazil 5mg 4 viên/2 lần", "Pharcotex 4 viên/2 lần"],
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Clarythromycin 500mg 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Lorotadyl 10mg 2 viên/2 lần", "Terpin dexmethorphan 4 viên/2 lần", "Ngậm Biseptol"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Metronidazol 250mg 2 viên/2 lần", "Amoxccillin 500mg 4 viên/2 lần", "Biseptol 4mg 4 viên/2 lần", "Prednisolon 5mg 4 viên/2 lần", "Methorphan 4 viên/2 lần"],
+                        ["Cefadroxine 500mg 4 viên/2 lần", "Lysozime 90mg 4 viên/2 lần", "Fexofenadin 60mg 2 viên/2 lần", "Pharcotex 4 viên/2 lần", "Ngậm Biseptol"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Clarythromycin 250mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Promethazil siro 5ml/3 lần", "Autusin siro 5ml/3 lần", "Ngậm bỏ phế"],
+                        ["Amoxccillin 250mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Clorpheniramin 2mg 2 viên/2 lần", "Terpin Codein 2 viên/2 lần", "Ngậm bổ phế"]
+                    ]
+                }
+            },
+            {
+                "n": "Viêm V.A ở trẻ em",
+                "s": "Cổ họng sưng đau, có hạch, sốt cao, quấy khóc.",
+                "t": "Kháng sinh + chống viêm + giảm đau hạ sốt + an thần (siro dòng Histamin) + oresol bù nước.",
+                "p": {
+                    "Trẻ em 1-2 tuổi": [
+                        ["Clamocyl 250mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Phenergan 5ml/lần x 3 lần/ngày", "Efferalgan 80-150mg 1g/1 lần", "Oresol 1g pha gần 200ml nước"]
+                    ],
+                    "Trẻ em 3-5 tuổi": [
+                        ["Erythromycin 250mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Hapacol 250-325mg 1g/lần – 1 viên/1 lần", "Promethazin 5ml/lần x 3 lần/ngày", "Oresol 1g pha gần 200ml nước"]
+                    ],
+                    "Trẻ em 6-10 tuổi": [
+                        ["Cefixim (Amoxccillin) 100-500mg 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Hapacol 325-500mg 2 viên/2 lần", "Promethazin 10ml/lần x 3 lần/ngày", "Oresol 1g pha gần 200ml nước"]
+                    ]
+                }
+            },
+            {
+                "n": "Viêm phổi cấp tính",
+                "s": "Đau tức ngực, đau vai lưng, khó thở ho nhiều, đờm đặc xanh vàng, sốt cao, người mệt, ra mồ hôi, chân tay lạnh.",
+                "t": "Kháng sinh mạnh + chống viêm + giãn phế quản + long đờm + giảm ho nặng + hạ sốt + thuốc bổ + Oresol bù nước + trà gừng.",
+                "p": {
+                    "Người bình thường": [
+                        ["Ciprofloxacin 500mg 4 viên/2 lần", "Methyl prednisolon 4mg 4 viên/2 lần", "Sabutamol 4mg 2 viên/2 lần", "Coderforte 4 viên/2 lần", "Acemuc 200mg 4g/2 lần", "Efferalgan sủi 500mg 1 viên/1 lần cách 4-6h", "Pharmaton 2 viên/2 lần", "Oresol bù nước 1 lít/24h", "Trà gừng (nếu chân tay lạnh)"],
+                        ["Ciprofloxacin 500mg 2 viên/2 lần", "Prednisolon 5mg 4 viên/2 lần", "Salbutamol 4mg 2 viên/2 lần", "Coderforte 4 viên/2 lần", "Acemuc 200mg 4g/2 lần", "Panadol Extra 500mg 4 viên/2 lần", "Provitan 2 viên/2 lần", "Oresol", "Trà gừng"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Klamentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Partamol 500mg 4 viên/2 lần", "Họ bảo thanh siro 15ml/3 lần", "Exomuc 200mg 4g/2 lần", "Asthalin xịt", "Provitan 2 viên/2 lần", "Oresol bù nước 1 lít/24h", "Trà gừng (nếu chân tay lạnh)"],
+                        ["Augmentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Siretide xịt", "Eugica 4 viên/2 lần", "Acetyl cyteine 200mg 4 viên/2 lần", "Patamol 500mg 4 viên/2 lần", "Procare 2 viên/2 lần", "Oresol", "Trà gừng"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Clarythromycin 500mg 2 viên/2 lần", "Amoxccillin 500mg 4 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Salbutamol 4mg 2 viên/2 lần", "Metheophan 4 viên/2 lần", "Acytyl cystein 200mg 4 viên/2 lần", "Partamol 2 viên/2 lần", "Oresol bù nước 1 lít/24h", "Trà gừng"],
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Clarythromycin 500mg 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Ventolin xịt", "Terpin Dextromethorphan 4 viên/2 lần", "Acemuc 200mg 4g/2 lần", "Panadol 500mg 4 viên/2 lần", "Davimo 2 viên/2 lần", "Oresol", "Trà gừng"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Azithromycin 500mg 1 viên/1 lần", "Methyl prednisolon 4mg 4 viên/2 lần", "Ventolin xịt", "Eugeca 4 viên/2 lần", "Ambroxon 30mg 4 viên/2 lần", "Efferalgan sủi 500mg 1 viên/1 lần (cách 4-6h)", "Homtasun 2 viên/2 lần", "Oresol bù nước", "Trà gừng"],
+                        ["Cefpodroxime 200mg 2 viên/2 lần", "Dexamethsol 5mg 4 viên/2 lần", "Asthalin xịt", "Pharcotex 4 viên/2 lần", "Acetyl cytaine 200mg 4 viên/2 lần", "Hapacol codein 200mg 1 viên/1 lần (4-6h)", "Biomin 2 viên/2 lần", "Oresol", "Trà gừng"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Clarythromycin 250mg 2 viên/2 lần", "Methyl prednisolon 4mg 2 viên/2 lần", "Asthalin xịt", "Tepin codein 2 viên/2 lần", "Acemuc 200mg 2 viên/2 lần", "Panadol 250mg 2 viên/2 lần", "Oresol", "Thymokis sr"],
+                        ["Augmentin 625mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Salbutamol 2mg 2 viên/2 lần", "Tepin codein 2 viên/2 lần", "Exomuc 200mg 2 viên/2 lần", "Patamol 500mg 2 viên/2 lần", "Oresol", "Imukid sr"]
+                    ]
+                }
+            },
+            {
+                "n": "Viêm tuyến nước bọt (Quai bị)",
+                "s": "Sưng, nóng, đỏ, đau 1 bên quai hàm, đau 1 bên tai, nhức lên đầu.",
+                "t": "Kháng sinh + chống viêm + giảm đau + tuần hoàn não + Vitamin B1, B6, B12 hoặc 3B tổng hợp.",
+                "p": {
+                    "Người bình thường": [
+                        ["Cefixime 200mg 2 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Panadol 500mg 4 viên/2 lần", "Hoạt huyết nhất nhất 4 viên/2 lần"],
+                        ["Ofloxacin 200mg 2 viên/2 lần", "Dexamethasol 5mg 4 viên/2 lần", "Efferalgan sủi 500mg 1 viên/1 lần (4-6h)", "Hoạt huyết CM3 6 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Partamol 500mg 4 viên/2 lần", "HHDN minh não khang 4 viên/2 lần"],
+                        ["Klamentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Ginkgomax 2 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Clarythromycin 500mg 2 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Ginkgomax 2 viên/2 lần (dùng cho mọi đối tượng)"],
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Partamol 500mg 4 viên/2 lần", "THN Thái Dương 4 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Cephalexin 500mg 4 viên/2 lần", "Lysozim 90mg 4 viên/2 lần", "Efferalgan sủi 500mg 1 viên/1 lần cách 4-6h", "HHDN Phúc Vinh 4 viên/2 lần"],
+                        ["Cefdinir 300mg 2 viên/2 lần", "Bethamethasol 5mg 4 viên/2 lần", "Panadol 500mg 4 viên/2 lần", "HHDN Traphaco 6 viên/2 lần"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Azithromycin 250mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Panadol 250mg 2 viên/2 lần"],
+                        ["Augmentin 625mg 2 viên/2 lần", "Seratiol speptid 10mg 2 viên/2 lần", "Hapacol 500mg 2 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Viêm răng lợi",
+                "s": "Sưng viêm, chảy máu chân răng.",
+                "t": "Kháng sinh răng (Spiramycin + Metronidazol) + chống viêm + Giảm đau + Rutin C (làm bền vững thành mạch).",
+                "p": {
+                    "Người bình thường": [
+                        ["Naphacogyl 4 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Panadol 500mg 4 viên/2 lần", "Rutin C 4 viên/2 lần"],
+                        ["Rodogyl 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Efferalgan sủi 500mg 1 viên/1 lần (para 4 viên/2 lần)", "3B (B1, B6, B12) 4 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Zinat 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Rutin C 4 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Vidogyl 4 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Rutin C 4 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Naphacogyl 4 viên/2 lần", "Lysozim 90mg 4 viên/2 lần", "Efferalgan sủi 500mg 1 viên/1 lần cách 4-6h", "Rutin C 4 viên/2 lần"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Zinat 250mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Panadol 250mg 2 viên/2 lần", "Rutin C 2 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Viêm mũi dị ứng",
+                "s": "Hắt hơi, sổ mũi, ngứa mũi, chảy nước mũi.",
+                "t": "Kháng Histamin + xịt mũi + Rutin C.",
+                "p": {
+                    "Người bình thường": [
+                        ["Clorpheniramin 4mg 4 viên/2 lần", "Xisat rửa mũi", "Coldi-B chữa viêm", "Rutin C 4 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Loratadyl 10mg 2 viên/2 lần", "Vesim rửa mũi", "Thông xoang tán chữa viêm", "Rutin C 4 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Cetirizil 10mg 2 viên/2 lần", "Xithosa rửa mũi", "Dophazolin chữa viêm", "Rutin C 4 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Alimemazil 5mg 4 viên/2 lần", "Humer rửa mũi", "Thông xoang nam dược chữa viêm", "Rutin C 4 viên/2 lần"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Promethazin siro 5ml/3 lần", "Sterimar rửa mũi", "Otilin chữa viêm"]
+                    ]
+                }
+            },
+            {
+                "n": "Viêm xoang mũi",
+                "s": "Hắt hơi, sổ mũi, ngạt mũi, ngứa, đau hốc mũi, đau trán, đỉnh đầu, đờm đặc quánh xanh vàng, nước mũi chảy xuống họng gây ho.",
+                "t": "Kháng sinh nặng + corticoid + kháng histamin + xịt mũi thảo dược + long đờm + Vitamin C tăng đề kháng + chữa viêm xoang + giảm đau hạ sốt.",
+                "p": {
+                    "Người bình thường": [
+                        ["Azithromycin 500mg 1 viên/1 lần", "Methyl Prednisolon 4mg 4 viên/2 lần", "Clorpheniramin 4mg 4 viên/2 lần", "Dophazolin xịt mũi", "Acemuc 200mg 4 viên/2 lần", "Rutin C 4 viên/2 lần", "Rhinasin OPC 4 viên/2 lần", "Efferalgan 500mg 4 viên/2 lần"],
+                        ["Ciprofloxacin 500mg 2 viên/2 lần", "Prednisolon 5mg 4 viên/2 lần", "Cetirizil 10mg 2 viên/2 lần", "Naphazolin xịt mũi", "Acetyl Cystein 200mg 4 viên/2 lần", "Vitamin C 4 viên/2 lần", "Thông xoang tán 6 viên/2 lần", "Panadol Extra 500mg 4 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Zinnat 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Loratadyl 10mg 2 viên/2 lần", "Xịt mũi thái dương", "Acemuc 200mg 4 viên/2 lần", "Rutin C 4 viên/2 lần", "Thông xoang tán 4 viên/2 lần", "Panadol 500mg 2 viên/2 lần"],
+                        ["Ampicillin 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Certirizin 10mg 2 viên/2 lần", "Xịt mũi thái dương", "Acetyl Cystein 200mg 4 viên/2 lần", "Rutin C 2 viên/2 lần", "Thông xoang tán 4 viên/2 lần", "Partamol 500mg 2 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Clarythomyxin 500mg 2 viên/2 lần", "Seratiol speptid 10mg 2 viên/2 lần", "Alimemazil 5mg 4 viên/2 lần", "Dexaven xịt mũi", "Ambroxol 30mg 4 viên/2 lần", "Rutin C 4 viên/2 lần", "Rhinasin OPC 4 viên/2 lần", "Efferalgan 500mg 4 viên/2 lần"],
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Clarythromycin 500mg 2 viên/2 lần", "Clorpheniramin 4mg 2 viên/2 lần", "Hapacol xịt mũi", "Acetyl Cystein 200mg 4 viên/2 lần", "Rutin C 4 viên/2 lần", "Thông xoang tán 4 viên/2 lần", "Paracetamol 500mg 4 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Azithromycin 500mg 1 viên/1 lần", "Prednisolon 5mg 4 viên/2 lần", "Peritol 4mg 4 viên/2 lần", "Coldi-B xịt mũi", "Mutix 200mg 4 viên/2 lần", "Thông xoang tán 4 viên/2 lần", "Rutin C 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần"],
+                        ["Zinnat 500mg 2 viên/2 lần", "Lysozim 90mg 4 viên/2 lần", "Loratadyl 10mg 2 viên/2 lần", "Acitifed xịt mũi", "Ambroxol 300mg 4 viên/2 lần", "Thông xoang tán 6 viên/2 lần", "Vitamil C 2 viên/2 lần", "Panadol 500mg 4 viên/2 lần"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Zinnat 250mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Promethazin siro 5ml/3 lần", "Xịt mũi thái dương", "Acemuc 200mg 2 viên/2 lần", "Thông xoang tán 2 viên/2 lần", "Rutin C 2 viên/2 lần", "Paracetamol 250mg 4 viên/2 lần"],
+                        ["Amoxccillin 500mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Clorpheniramin 4mg 2 viên/2 lần", "Xịt mũi thái dương", "Ambroxol 300mg 2 viên/2 lần", "Thông xoang tán", "Vitamin C 2 viên/2 lần", "Partamol 500mg 2 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Sốt Virus",
+                "s": "Sốt 38 – 38,5 độ, khi sốt người mệt do bị co cơ, không sốt cao, sốt có tính chất chu kì, khoảng 6h lại sốt lại 1 lần, không ho, không viêm họng.",
+                "t": "Giảm sốt bằng aspirin, Mofen (Ibuprofen) hoặc Efferalgan codein + Oresol + vitamin C + Thymodulin 80mg tăng miễn dịch.",
+                "p": {
+                    "Người bình thường": [
+                        ["Aspirin 500mg 4 viên/2 lần", "Oresol", "Rutin C 4 viên/2 lần", "Thymodulin 80mg 2 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Panadol 500mg 4 viên/2 lần", "Oresol", "Rutin C 4 viên/2 lần", "Thymodulin 80mg 2 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Hapacol 500mg 4 viên/2 lần", "Oresol", "Cadimin 500mg 2 viên/2 lần", "Thymodulin 80mg 2 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Efferalgan codein 500mg 1 viên/1 lần", "Oresol", "Upa C 1g 1 viên/1 lần", "Thymodulin 80mg 2 viên/2 lần"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Hapacol 250 2 viên/2 lần", "Oresol", "Vitamin C 500mg 2 viên/2 lần", "Thymodulin 80mg 2 viên/2 lần"]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "mat_tai",
+        "name": "Bệnh Về Mắt, Tai",
+        "diseases": [
+            {
+                "n": "Viêm đau mắt đỏ / Đau mắt hột",
+                "s": "Mắt đỏ rực, ngứa mắt, có gèn ri, nhức mắt, đau, sưng, cộm mắt, chảy nước mắt.",
+                "t": "Kháng sinh Quinolon/Tetracylin + chống viêm + giảm đau + nước rửa mắt Nacl 0,9% + kháng sinh nhỏ mắt + bổ mắt + Rutin C.",
+                "p": {
+                    "Người bình thường": [
+                        ["Ciprofloxacin 500mg 2 viên/2 lần", "Lysozim 90mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Nacl 0,9% rửa mắt", "Tobrex nhỏ mắt", "Vitamin A, D 2 viên/2 lần", "Rutin C 4 viên/2 lần"],
+                        ["Ofloxacin 200mg 2 viên/2 lần", "Prednisolon 5mg 4 viên/2 lần", "Panadol Extra 500mg 4 viên/2 lần", "Nacl 0,9% rửa mắt", "Naphacolyre nhỏ mắt", "Tobicom 2 viên/2 lần", "Rutin C 4 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Zinnat 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Nacl 0,9% rửa mắt", "Efferalgan 500mg 4 viên/2 lần", "Dovamed nhỏ mắt", "Omega 3 2 viên/2 lần", "Rutin C 4 viên/2 lần"],
+                        ["Augmentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Partamol 500mg 4 viên/2 lần", "Nacl 0,9% rửa mắt", "Nemydexa nhỏ mắt", "Dầu gan cá Hạ Long 2 viên/2 lần", "Rutin C 4 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Clarythromycin 500mg 2 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Paracetamol 500mg 4 viên/2 lần", "Nacl 0,9% rửa mắt", "Neomycin nhỏ mắt", "Dầu gan cá 4 viên/2 lần", "Rutin C 4 viên/2 lần"],
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Paracetamol 500mg 4 viên/2 lần", "Nacl 0,9% rửa mắt", "Colydexa nhỏ mắt", "Dầu gấc Gavita 2 viên/2 lần", "Rutin C 4 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Ofloxacin 200mg 2 viên/2 lần", "Lysozim 90mg 4 viên/2 lần", "Paracetamol 500mg 4 viên/2 lần", "Nacl 0,9% rửa mắt", "Oflovid nhỏ mắt", "Gassta 4 viên/2 lần", "Rutin C 4 viên/2 lần"],
+                        ["Zinnat 500mg 2 viên/2 lần", "Bethamethasol 5mg 4 viên/2 lần", "Efferalgan 500mg 4 viên/2 lần", "Nacl 0,9% rửa mắt", "Tobrex nhỏ mắt", "Dầu gấc vinaga 2 viên/2 lần", "Rutin C 4 viên/2 lần"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Clarythromycin 250mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Panadol 500mg 2 viên/2 lần", "Nacl 0,9% rửa mắt", "Lecinflox nhỏ mắt", "Gấc cá hang 2 viên/2 lần", "Rutin C 2 viên/2 lần"],
+                        ["Cefixime 100mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Hapacol 500mg 2 viên/2 lần", "Nacl 0,9% rửa mắt", "Tobrex nhỏ mắt", "Gấc cá hang 2 viên/2 lần", "Rutin C 2 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Viêm bờ mi",
+                "s": "Sưng 2 mi mắt, đỏ, mọng.",
+                "t": "Kháng sinh + chống viêm phù nề + giảm đau + Nacl 0,9% rửa mắt + Tetracylin (bôi tại chỗ).",
+                "p": {
+                    "Người bình thường": [
+                        ["Azithromycin 50mg 1 viên/1 lần", "Lysozim 90mg 4 viên/2 lần", "Efferalgan 500mg 1 viên/1 lần cách 4-6h", "Nacl 0,9% rửa mắt", "Tetractlin bôi"],
+                        ["Ciprofloxacin 500mg 2 viên/2 lần", "Dexamethasol 5mg 4 viên/2 lần", "Patamol 500mg 4 viên/2 lần", "Nacl 0,9% rửa mắt", "Tetracylin bôi"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Hapacol 4 viên/2 lần", "Nacl 0,9% rửa mắt"],
+                        ["Klamentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Patamol 500mg 4 viên/2 lần", "Nacl 0,9% rửa mắt"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Clarythromycin 500mg 2 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Panadol 500mg 4 viên/2 lần", "Nacl 0,9% rửa mắt", "Tetracylin bôi"],
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Nacl 0,9% rửa mắt", "Gantamycin bôi"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Cefixime 200mg 2 viên/2 lần", "Lysozim 90mg 4 viên/2 lần", "Patamol 500mg 4 viên/2 lần", "Nacl 0,9% rửa mắt", "Chlorocina H bôi"],
+                        ["Zinnat 500mg 2 viên/2 lần", "Lysozim 90mg 4 viên/2 lần", "Panadol 50mg 4 viên/2 lần", "Nacl 0,9% rửa mắt", "Tetracylin bôi"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Zinnat 250mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Hapacol 250mg 2 viên/2 lần", "Nacl 0,9% rửa mắt"],
+                        ["Cefixime 100mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Partamol 250mg 2 viên/2 lần", "Nacl 0,9% rửa mắt"]
+                    ]
+                }
+            },
+            {
+                "n": "Lên lẹo ở mắt",
+                "s": "Mọc mụn ở mọng mắt, đau, có mủ.",
+                "t": "Kháng sinh + chống viêm corticoid + giảm đau + Nacl 0,9% rửa mắt.",
+                "p": {
+                    "Người bình thường": [
+                        ["Erythromycin 500mg 2 viên/2 lần", "Prednisolon 5mg 4 viên/2 lần", "Efferalgan sủi 500mg 1 viên/1 lần cách 4-6h", "Nacl 0,9% rửa mắt", "Tetracylin bôi"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Clarythromycin 500mg 2 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Patamol 500mg 4 viên/2 lần", "Nacl 0,9% rửa mắt", "Chlorocima H bôi"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Cefadroxin 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Nacl 0,9% rửa mắt"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Azithromycin 500mg 1 viên/1 lần", "Bethamethasol 5mg 4 viên/2 lần", "Patamol 500mg 4 viên/2 lần", "Nacl 0,9% rửa mắt", "tetracylin bôi"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Rovamycin 1,5UI 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Hapacol 250mg 2 viên/2 lần", "Nacl 0,9% rửa mắt"]
+                    ]
+                }
+            },
+            {
+                "n": "Viêm tai thông thường",
+                "s": "Đau nhức tại tai, đau nhức lên trán và đỉnh đầu, ù tai, có mủ chảy ra, có thể sốt.",
+                "t": "Kháng sinh Quinolon + Corticoid + giảm đau hạ sốt + oxi già rửa tai hút mủ + nhỏ tai + Bổ thần kinh.",
+                "p": {
+                    "Người bình thường": [
+                        ["Ofloxacin 200mg 2 viên/2 lần", "Methyl Prednisolon 4mg 4 viên", "Panadol 500mg 4 viên/2 lần", "Oxi già: rửa tai", "Oflovid nhỏ tai"],
+                        ["Levofloxacin 500mg 2 viên/2 lần", "Bethamethasol 5mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Oxi già", "Ofloxacin (Ifexim, Oflovid) nhỏ 1 giọt, 3 lần/ngày"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Clarythromycin 500mg 2 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Patamol 500mg 4 viên/2 lần", "Oxi già", "Polydexa nhỏ tai"],
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Oxi già", "Collydexa nhỏ 2-3 giọt 3-4 lần/ngày"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Klamentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Oxi già", "Polymax"],
+                        ["Augmentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Patamol 500mg 4 viên/2 lần", "Oxi già", "Tobrex"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Azithromycin 500mg 1 viên/1 lần", "Bethamethasol 5mg 4 viên/2 lần", "Panadol 500mg 4 viên/2 lần", "Oxi già", "Lecinflox nhỏ tai"],
+                        ["Ofloxacin 200mf 2 viên/2 lần", "Lysozim 90mg 4 viên/2 lần", "Panadol 500mg 4 viên/2 lần", "Oxi già", "Cprofloxacin nhỏ tai"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Clarythromycin 250mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Hapacol 500mg 2 viên/2 lần", "Oxi già", "Oflovid nhỏ tai"],
+                        ["Klamentin 625 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Hapacol 500mg 2 viên/2 lần", "Oxi già", "Tobrex nhỏ tai"]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "tuan_hoan_nao",
+        "name": "Bệnh Tuần Hoàn Não",
+        "diseases": [
+            {
+                "n": "Rối loạn tiền đình",
+                "s": "Chóng mặt, buồn nôn, mất thăng bằng, không đứng đi được, người nôn nao đau đầu.",
+                "t": "Các thuốc chống rối loạn tiền đình + tuần hoàn não + bổ thần kinh 3B, Magie B6 + giảm đau có thành phần Codein.",
+                "p": {
+                    "Người bình thường": [
+                        ["Tanganin 500mg 4 viên/2 lần", "Ginkovimax 2 viên/2 lần", "Magie B6 2 viên/2 lần", "Efferalgan Codein sủi 500mg 1 viên/1 lần cách 4-6h"],
+                        ["Piracetam 800mg 2 viên/2 lần", "THN Thái Dương 4 viên/2 lần", "Magie B6 2 viên/2 lần", "Hapacol codein 1 viên/1 lần cách 4-6h"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Stugezol 25mg 4 viên/2 lần", "Hoạt huyết CM3 2 viên/2 lần", "3B 2 viên/2 lần", "Partamol 500mg 4 viên/2 lần"],
+                        ["Tanganin 500mg 4 viên/2 lần", "HH Minh Não Khang 2 viên/2 lần", "Vitamil B6 2 viên/2 lần", "Panadol 500mg 4 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Stugezol 25mg 4 viên/2 lần", "Hoạt huyết Thái Dương 2 viên/2 lần", "3B 2 viên/2 lần", "Partamol 500mg 4 viên/2 lần"],
+                        ["Stugezol 25mg 4 viên/2 lần", "Ginkovimax 2 viên/2 lần", "3B 2 viên/2 lần", "Hapacol 500mg 4 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Caviton 5mg 4 viên/2 lần", "HHDN Nhất Tâm 2 viên/2 lần", "Vitamin B6 2 viên/2 lần", "Hapacol Codein sủi 500mg 1 viên/1 lần cách 4-6h"],
+                        ["Tanganin 500mg 4 viên/2 lần", "HHDN Traphaco 6 viên/2 lần", "3B 2 viên/2 lần", "Panadol Extra 4 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Bệnh đau nửa đầu",
+                "s": "Đau 1 nửa bên đầu, tê bì 1 bên mặt, uống thuốc giảm đau thông thường không khỏi.",
+                "t": "Uống các thuốc giảm đau nửa đầu + giảm đau thông thường + tuần hoàn não + bổ thần kinh.",
+                "p": {
+                    "Người bình thường": [
+                        ["Tamik 3mg 2 viên/2 lần", "Efferalgan codein sủi 500mg 1 viên/1 lần cách 4-6h", "HH Nhất Nhất 2 viên/2 lần", "3B 2 viên/2 lần"],
+                        ["Sibelium 5mg 2 viên/2 lần", "Panadol 500mg 4 viên/2 lần", "HH CM3 6 viên/2 lần", "Magie B6 2 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Sibelium 5mg 2 viên/2 lần", "Patamol 500mg 4 viên/2 lần", "HH Traphaco 2 viên/2 lần", "Magie B6 2 viên/2 lần"],
+                        ["Sibelium 5mg 2 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "HH Traphaco 6 viên/2 lần", "3B 2 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Siberizin 5mg 2 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Hoạt Huyết CM3 2 viên/2 lần", "Magie B6 2 viên/2 lần"],
+                        ["Sibelium 5mg 2 viên/2 lần", "Partamol 500mg 4 viên/2 lần", "Ginkovimax 2 viên/2 lần", "3B 2 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Tamik 3mg 2 viên/2 lần", "Panadol Extra sủi 500mg 1 viên/1 lần cách 4-6h", "Hoạt huyết CM3 2 viên/2 lần", "3B 2 viên/2 lần"],
+                        ["Siberizin 5mg 1/ngày", "Hapacol 500mg 4 viên/2 lần", "HH Nhất Nhất 2 viên/2 lần", "3B 2 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Rối loạn vận mạch não (Đau dây thần kinh)",
+                "s": "Đau giần giật sau gót gáy, đau lên đỉnh đầu, đau thái dương, mất ngủ...",
+                "t": "Giảm đau + bổ thần kinh + hoạt huyết dưỡng não + tăng oxi (Nootropyl, Piracetam).",
+                "p": {
+                    "Người bình thường": [
+                        ["Hapacol 500mg 4 viên/2 lần", "Magie B6 2 viên/2 lần", "HH Nhất Nhất 2 viên/2 lần", "Nootropyl 400mg 4 viên/2 lần"],
+                        ["Panadol Extra 500mg 4 viên/2 lần", "3B 2 viên/2 lần", "HH Nhất Nhất 4 viên/2 lần", "Piracetam 800mg 2 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Partamol 500mg 4 viên/2 lần", "3B 2 viên/2 lần", "Ginkovimax 2 viên/2 lần", "Nootropyl 400mg 4 viên/2 lần"],
+                        ["Panadol 500mg 4 viên/2 lần", "3B 2 viên/2 lần", "THN Thái Dương 4 viên/2 lần", "Piracetam 400mg 4 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Hapacol 500mg 4 viên/2 lần", "3B 2 viên/2 lần", "HH Nhất Tâm 2 viên/2 lần", "Piracetam 800mg 2 viên/2 lần"],
+                        ["Partamol 500mg 2 viên/2 lần", "Ginkovimax 2 viên/2 lần", "HH Nhất Nhất 4 viên/2 lần", "Nootropyl 400mg 4 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Efferalgan sủi 500mg 1 viên/1 lần cách 4-6h", "3B 2 viên/2 lần", "Hoạt huyết CM3 2 viên/2 lần", "Piracetam 400mg 4 viên/2 lần"],
+                        ["Paracetamol 500mg 4 viên/2 lần", "3B 2 viên/2 lần", "THN Thái Dương 4 viên/2 lần", "Nootropyl 400mg 4 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Đau đầu do thay đổi thời tiết",
+                "s": "Đau nhức đầu, mệt mỏi mỗi khi thời tiết thay đổi.",
+                "t": "Giảm đau + bổ thần kinh + hoạt huyết dưỡng não.",
+                "p": {
+                    "Người bình thường": [
+                        ["Efferalgan codein 500mg 1 viên/1 lần cách 4-6h", "3B 2 viên/2 lần", "Ginkovimax 2 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Patamol 500mg 4 viên/2 lần", "Magie B6 2 viên/2 lần", "HH Nhất Tâm 2 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Patamol 500mg 4 viên/2 lần", "3B 2 viên/2 lần", "Hoạt huyết CM3 2 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Panadol 500mg 4 viên/2 lần", "3B 2 viên/2 lần", "Biloba TV 2 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Giảm trí nhớ do căng thẳng/mất ngủ",
+                "s": "Giảm trí nhớ do học hành căng thẳng hoặc do mất ngủ, suy nghĩ nhiều.",
+                "t": "Hoạt huyết dưỡng não + thuốc tăng cường trí nhớ + 3B + Omega3.",
+                "p": {
+                    "Người bình thường": [
+                        ["HH Nhất Tâm 2 viên/2 lần", "Ích mộc trí 2 viên/2 lần", "3B 2 viên/2 lần", "Omega 3"]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "xuong_khop",
+        "name": "Bệnh Xương Khớp",
+        "diseases": [
+            {
+                "n": "Viêm đa khớp dạng thấp",
+                "s": "Đau khớp có tính chất đối xứng, khó vận động do cứng khớp vào buổi sáng, thường gặp ở phụ nữ 35 tuổi.",
+                "t": "Kháng sinh + chống viêm Phisteroid + giãn cơ, co cơ + 3B + Vitamin E + dán giảm đau, bôi giảm đau.",
+                "p": {
+                    "Người bình thường": [
+                        ["Clindamycin 300mg 2 viên/2 lần", "Meloxicam 7,5mg 2 viên/2 lần", "Decoltractyl 250mg 4 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần", "Voltaren (bôi giảm đau)"],
+                        ["Penicillin 1UI 4 viên/2 lần", "Diclofenac 500mg 2 viên/2 lần", "Mydocalm 150mg 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần", "Salonpas dán"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Penicillin 1.000.000 đv 4 viên/2 lần", "Celecoxib 200mg 2 viên/2 lần", "Decoltractyl 250mg 4 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần", "Salonpas dán", "Gastropulgite (bao vết loét)"],
+                        ["Clarythromycin 500mg 2 viên/2 lần", "Celecoxib 200mg 2 viên/2 lần", "Musteet 250mg 6 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần", "Salonsip dán", "Gastropulgite 2 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Lincomycin 500mg 4 viên/2 lần", "Meloxicam 7,5mg 2 viên/2 lần", "Decoltractyl 250mg 4 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần", "Cốt thống linh dán"],
+                        ["Clindamycin 300mg 2 viên/2 lần", "Diclofenac 500mg 2 viên/2 lần", "Mydonar 50mg 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần", "Gấu trắng Misa bôi"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Klamentin 1g 2 viên/2 lần", "Celecoxib 200mg 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần", "Ecosip dán"],
+                        ["Augmentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần", "Ecosip dán"]
+                    ]
+                }
+            },
+            {
+                "n": "Viêm khớp (mọi đối tượng)",
+                "s": "Sưng, nóng, đỏ, đau tại 1 vị trí của khớp, khó cử động, cứng khớp.",
+                "t": "Kháng sinh xương khớp + chống viêm Phisteroid + 3B + Vitamin E.",
+                "p": {
+                    "Người bình thường": [
+                        ["Penicillin 1.000.000 Đv 4 viên/2 lần", "Meloxicam 7,5mg 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần"],
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Celecoxib 200mg 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Meloxicam 7,5mg 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần"],
+                        ["Clarythromycin 500mg 4 viên/2 lần", "Selecap 100mg 4 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Klamentin 1g 2 viên/2 lần", "Celecoxib 200mg 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần"],
+                        ["Augmentin 1g 2 viên/2 lần", "Selecap 200mg 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Clindamycin 300mg 2 viên/2 lần", "Ibuprofen 500mg 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần"],
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Paracetamol 500mg 4 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Amoxccillin 500mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "3B 1 viên/1 lần"],
+                        ["Augmentin 625mg 2 viên/2 lần", "Meloxicam 7,5mg 2 viên/2 lần", "3B 1 viên/1 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Thoái hóa xương khớp, thoát vị đĩa đệm",
+                "s": "Đau C4-5, đau lên đầu, chóng mặt, đau lan vai gáy, cánh tay. Đau L4-5 đau bại 2 bên hông, lan xuống chân, khó cử động.",
+                "t": "Chống viêm giảm đau Phisteroid + Glucosamin (Glucosamin + Chondroitin) + canxi + giãn cơ + 3B + dán giảm đau hoặc bôi + Vitamin E.",
+                "p": {
+                    "Người bình thường": [
+                        ["Meloxicam 7,5mg 2 viên/2 lần", "Bonlutin (Chondroitin) 4 viên/2 lần", "Calcium 2 viên/2 lần", "Decoltractyl 250mg 4 viên/2 lần", "3B 2 viên/2 lần", "Salonpas dán", "Vitamin E 1 viên/1 lần"],
+                        ["Ibuprofen 500mg 2 viên/2 lần", "Joint max 4 viên/2 lần (trước ăn)", "Liquid Calcium 2 viên/2 lần", "Mydocalm 150mg 2 viên/2 lần", "3B 2 viên/2 lần", "Voltaren bôi", "Vitamin E 1 viên/1 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Celecoxib 200mg 2 viên/2 lần", "Glucosamin 250mg 4 viên/2 lần", "Canxi corbire 2 ống/2 lần", "Decoltractyl 250mg 4 viên/2 lần", "Gastropulgite 2 gói/2 lần", "3B 2 viên/2 lần", "Vitamin E 2 viên/2 lần", "Voltaren bôi"],
+                        ["Selecap 200mg 2 viên/2 lần", "Gastropulgite 2 gói/2 lần", "Davita bone 2 viên/2 lần", "Mydocalm 150mg 2 viên/2 lần", "Jex 2 viên/2 lần sau ăn", "3B 2 viên/2 lần", "Vitamin E 2 viên/2 lần", "Salonpas dán"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Celecoxib 200mg 2 viên/2 lần", "Canxi corbire 2 ống/2 lần", "3B 2 viên/2 lần", "Vitamin E 2 viên/2 lần", "Voltaren bôi"],
+                        ["Selecap 200mg 2 viên/2 lần", "Lyquid calci 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 2 viên/2 lần", "Salonpas dán"],
+                        ["Augmentin 1g 2 viên/2 lần", "Davita bone 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 2 viên/2 lần", "Gấu trắng Misa bôi"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Meloxicam 7,5mg 2 viên/2 lần", "Glucosamin 1g 2 viên/2 lần", "Calcium 2 viên/2 lần", "Decoltractyl 4 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần", "Salonsip dán"],
+                        ["Selecap 200mg 2 viên/2 lần", "Joint mã 4 viên/2 lần trước ăn", "Davita bone 2 viên/2 lần", "Mydonar 500mg 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần", "Salonpas dán"]
+                    ]
+                }
+            },
+            {
+                "n": "Thoái hóa xương ở người già do lão hóa",
+                "s": "Đau nhức các khớp, thoái hóa do tuổi già.",
+                "t": "Giống bệnh thoái hóa khớp.",
+                "p": {
+                    "Người già 80 tuổi": [
+                        ["Meloxicam 7,5mg 2 viên/2 lần", "Glucosamin 1g 2 viên/2 lần", "Calcium 2 viên/2 lần", "Decoltractyl 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần", "Salonsip dán"]
+                    ]
+                }
+            },
+            {
+                "n": "Chấn thương do va đập (bầm tím, phù nề)",
+                "s": "Sưng phù nề, bầm tím tụ máu sau va đập.",
+                "t": "Giảm đau nhóm xương khớp + các thuốc giảm sưng phù nề (Tan huyết PH, Opzen) + giãn cơ, co cơ + 3B + Vitamin E.",
+                "p": {
+                    "Người bình thường": [
+                        ["Meloxicam 7,5mg 2 viên/2 lần", "Opzen 4 viên/2 lần", "Decoltractyl 250mg 4 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần"],
+                        ["Diclofenac 500mg 2 viên/2 lần", "Tan huyết PH 4 viên/2 lần", "Mydocalm 50mg 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Celecoxib 200mg 4 viên/2 lần", "Opzen 4 viên/2 lần", "Decoltractyl 250mg 4 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần"],
+                        ["Selecap 20mg 2 viên/2 lần", "Tan huyết PH 4 viên/2 lần", "Mylolam 50mg 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Celecoxib 200mg 4 viên/2 lần", "Decoltractyl 250mg 4 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần"],
+                        ["Selecap 200mg 2 viên/2 lần", "Mydocalm 50mg 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Meloxicam 7,5mg 4 viên/2 lần", "Tan huyết PH 4 viên/2 lần", "Mydocalm 150mg 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần"],
+                        ["Diclofenac 500mg 2 viên/2 lần", "Opzen 4 viên/2 lần", "Mephenesin 250mg 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin E 1 viên/1 lần"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Celecoxib 200mg 1 viên/1 lần", "Opzen 2 viên/2 lần", "Decoltractyl 250mg 2 viên/2 lần", "3B 2 viên/2 lần"],
+                        ["Selecap 100mg 2 viên/2 lần", "Tan huyết PH 2 viên/2 lần", "Mephenesin 250mg 2 viên/2 lần", "3B 2 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Sơ cứu vết thương chảy máu, mụn nhọt",
+                "s": "Chảy máu ngoài da, mụn nhọt, sưng viêm.",
+                "t": "Rửa bằng oxi già hoặc PVP, rắc thuốc đỏ (Rifampicin), băng lại + kháng sinh + chống viêm + giảm đau + cầm máu (Transamin 500mg).",
+                "p": {
+                    "Người bình thường": [
+                        ["Erythromycin 500mg 2 viên/2 lần", "Lysozim 90mg 4 viên/2 lần", "Efferalgan sủi 500mg 1 viên/1 lần cách 4-6h", "Transamin 500mg 4 viên/2 lần", "Rửa bằng PVP", "Rắc Rifampicin băng lại"],
+                        ["Roxithromycin 150mg 2 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Paracetamol 500mg 4 viên/2 lần", "Transamin 500mg 4 viên/2 lần", "Oxi già", "Rắc Rifampicin băng lại"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Clarythromycin 500mg 2 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Patamol 500mg 4 viên/2 lần", "Transamin 500mg 4 viên/2 lần", "Rửa bằng oxi già", "Rắc Rifampicin băng lại"],
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Transamin 500mg 4 viên/2 lần", "Rửa bằng oxi già", "Rắc Rifampicin băng lại"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Ampicillin 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Paracetamol 500mg 4 viên/2 lần", "Transamin 500mg 4 viên/2 lần", "Rửa bằng oxi già", "Rắc Rifampicin băng lại"],
+                        ["Augmentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Partamol 500mg 4 viên/2 lần", "Transamin 500mg 4 viên/2 lần", "Rửa bằng oxi già", "Rắc Rifampicin băng lại"],
+                        ["Klamentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Transamin 500mg 4 viên/2 lần", "Rửa bằng oxi già", "Rắc Rifampicin băng lại"]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "gout",
+        "name": "Bệnh Gout",
+        "diseases": [
+            {
+                "n": "Bệnh Gout",
+                "s": "Sưng đau, biến dạng khớp ngón tay, ngón chân, đỏ nóng.",
+                "t": "Chống viêm nhóm Phisteroid + giảm acid (Allopurinol) + Glucosamin + Chondroiti + ăn giảm chất đạm.",
+                "p": {
+                    "Người bình thường": [
+                        ["Meloxicam 7,5mg 4 viên/2 lần", "Colchicin 1mg 2 viên/2 lần", "Jex 2 viên/2 lần", "Gout Tân Bình 4 viên/2 lần", "Ăn giảm chất đạm"],
+                        ["Diclofenac 500mg 2 viên/2 lần", "Allopurinol 300mg 2 viên/2 lần", "Jex 2 viên/2 lần", "Gout PV 4 viên/2 lần", "Ăn giảm chất đạm"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Celecoxib 200mg 2 viên/2 lần", "Allopurinol 300mg 2 viên/2 lần", "Glucosamin 250mg 4 viên/2 lần", "Hoàng thống phong 6 viên/2 lần", "Ăn giảm chất đạm"],
+                        ["Selecap 200mg 2 viên/2 lần", "Colchicin 1mg 2 viên/2 lần", "Joint max 4 viên/2 lần trước ăn", "Gout Tân Bình 4 viên/2 lần", "Ăn giảm chất đạm"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Meloxicam 7,5mg 4 viên/2 lần", "Colchicin 1mg 2 viên/2 lần", "Glucosamin 250mg 4 viên/2 lần", "Gout PV 4 viên/2 lần", "Ăn giảm chất đạm"],
+                        ["Ibuprofen 2 viên/2 lần", "Allopurinol 300mg 2 viên/2 lần", "Jex 2 viên/2 lần", "Gout Tân Bình 4 viên/2 lần", "Ăn giảm chất đạm"]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "tieu_hoa",
+        "name": "Bệnh Về Tiêu Hóa",
+        "diseases": [
+            {
+                "n": "Viêm loét dạ dày, tá tràng",
+                "s": "Ợ hơi, ợ chua, nóng rát vùng thượng vị, đau quặn bụng, nóng bụng, đầy hơi, ăn không tiêu, nôn ra axid dịch vị.",
+                "t": "Kháng sinh kết hợp + giảm đau cơ trơn + giảm tiết axid dịch vị + bao viêm loét + thuốc hỗ trợ điều trị.",
+                "p": {
+                    "Người bình thường": [
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Clarythromycin 500mg 2 viên/2 lần", "Metronidazol 250mg 2 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Nexium 40mg 1 viên/1 lần lúc đói sáng", "Gastropulgite 3g 2 gói/2 lần", "Malox 2 viên/2 lần", "Mutilium M 2 viên/2 lần", "Tinh chất nghệ 2 gói/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày (tái phát)": [
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Clarythromycin 500mg 2 viên/2 lần", "Tinidazol 500mg 4 viên/2 lần", "Spasmacerine 40mg 4 viên/2 lần", "Pantoloc 40mg 1 viên/1 lần", "Noifel 3g 2 gói/2 lần", "Kremil - S 2 viên/2 lần", "Ampelop 4 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Metronidazol 250mg 2 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Muối Nabica uống lúc đói", "Gastropulgite 3g 2 gói/2 lần", "Edoz 2 gói/2 lần", "Mật ong nghệ đen 4 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Clarythromycin 500mg 2 viên/2 lần", "Spasmacerine 40mg 4 viên/2 lần", "Tinidazol 500mg 4 viên/2 lần", "Phosphalugel 3g 2 gói/2 lần", "Kremil - S 2 viên/2 lần", "Ampelop 4 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Viêm đại tràng mãn tính",
+                "s": "Đau bụng hạ sườn trái, ăn thức ăn lạ vào bị đi ngoài phân nát, phân sống, mùi khắm.",
+                "t": "Kháng sinh đường ruột (kị khí) + giảm đau cơ trơn + men tiêu hóa + B1 + bổ sung chất sơ + thuốc chữa đại tràng.",
+                "p": {
+                    "Người bình thường": [
+                        ["Biseptol 480mg 4 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Biolac A+ 4 viên/2 lần", "B1 2 viên/2 lần", "Vitan 1 2 gói/2 lần", "Đại tràng Bảo Nguyên 4 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Berberin 4 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Biolac 2 gói/2 lần", "B1 2 viên/2 lần", "Vitan 1 2 gói/2 lần", "Đại tràng Tâm Bình 2 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Spasmaverine 40mg 4 viên/2 lần", "Biobisamin gold 2 gói/2 lần", "B1 2 viên/2 lần", "Santafe 2 gói/2 lần", "Đại Tràng Khang 2 gói/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Metronidazol 250mg 4 viên/2 lần", "Sapsmaverine 40mg 4 viên/2 lần", "Lactomin 2 gói/2 lần", "B1 2 viên/2 lần", "Santafe 2 gói/2 lần", "Đại tràng Tâm Bình 2 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Viêm đại tràng co thắt",
+                "s": "Đau hạ sườn trái, đi ngoài phân cứng.",
+                "t": "Giảm đau cơ trơn + nhuận tràng + chất sơ + men tiêu hóa + xoa bụng, uống nhiều nước.",
+                "p": {
+                    "Người bình thường": [
+                        ["Nospa 40mg 4 viên/2 lần", "Sorbitol 5g 2 gói/2 lần", "Vitan 1 2 gói/2 lần", "Lactomin 2 gói/2 lần"],
+                        ["Spasmaverine 40mg 4 viên/2 lần", "Forlax 10g 2 gói/2 lần", "Santafe 2 gói/2 lần", "Bio-acimin gold 2 gói/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Nospa 40mg 4 viên/2 lần", "Vitan 1 2 gói/2 lần", "Biotic Multi 2 gói/2 lần"],
+                        ["Spasmaverine 40mg 4 viên/2 lần", "Duphalac 2 gói/2 lần", "Santafe 2 gói/2 lần", "Probiokid 2 gói/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Nospa 40mg 4 viên/2 lần", "Forlax 3 gói/3 lần", "Vitan 1 2 gói/2 lần", "Biolac 2-4g/ngày"],
+                        ["Nospa 40mg 4 viên/2 lần", "Nhuận táo PV siro 15ml/2 lần", "Santafe 2 gói/2 lần", "Enterogermine 2 ống/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Spasmaverine 40mg 4 viên/2 lần", "Duphalac 2 gói/2 lần", "Santafe 2 gói/2 lần", "Bioacemin gold 2 gói/2 lần"],
+                        ["Nospa 40mg 4 viên/2 lần", "Nhuận táo PV siro 15ml/2 lần", "Thông táo Hoa Linh 10ml x 2-3 lần/ngày", "Vitan 1 2 gói/2 lần", "Biolac 2 gói/2 lần/ngày"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Nospa 40mg 2 viên/2 lần", "Nhuận táo PV siro 10ml/2 lần", "Vitan 1 2 gói/2 lần", "Probiokid 2 gói/2 lần"],
+                        ["Nospa 40mg 2 viên/2 lần", "Ovalac 5mg 1 viên/1 lần/ngày uống tối", "Santafe 2 gói/2 lần", "Biolac 2 gói/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Tiêu chảy do mọi nguyên nhân",
+                "s": "Đau quặn bụng, đi ngoài nhiều lần, phân lỏng.",
+                "t": "Kháng sinh đường ruột + cầm tiêu chảy + men tiêu hóa + Oresol.",
+                "p": {
+                    "Người bình thường": [
+                        ["Biseptol 480mg 4 viên/2 lần", "Loperamide 4 viên/2 lần", "Lactomin 2 gói/2 lần", "Oresol"],
+                        ["Tinidazol 500mg 4 viên/2 lần", "Bermoric 4 viên/2 lần", "bioacemin 2 viên/2 lần", "Oresol"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Metronidazol 250mg 4 viên/2 lần", "Loperamide 4 viên/2 lần", "Biophanew 2 gói/2 lần", "Oresol"],
+                        ["Biseptol 480mg 4 viên/2 lần", "Hidrasec 30mg 2 gói/2 lần", "Biotic 3 gói/3 lần", "Oresol"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Sulfaganin 500mg 2 viên/2 lần", "Loperamide 4 viên/2 lần", "Biotic Multi 2 gói/2 lần", "Oresol"],
+                        ["Tetracylin 500mg 2 viên/2 lần", "Bermoric 4 viên/2 lần", "Biophanew 2 gói/2 lần", "Oresol"],
+                        ["Mộc hoa trắng 4 viên/2 lần", "Ercefuryl 200mg 4 viên/2 lần", "Enterogermine 2 ống/2 lần", "Oresol"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Loperamide 4 viên/2 lần", "Biolac 2-4g/ngày", "Oresol"],
+                        ["Biseptol 480mg 4 viên/2 lần", "Ercefuryl 200mg 4 viên/2 lần", "Biosubtyl 2 gói/2 lần", "Oresol"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Mộ hoa trắng 2 viên/2 lần", "Loperamide 2 viên/2 lần", "Biophanew 2 gói/2 lần", "Oresol"],
+                        ["Metronidazol 250mg 2 viên/2 lần", "Bermoric 2 viên/2 lần", "Biolac 1-2g/2 lần/ngày", "Oresol"]
+                    ]
+                }
+            },
+            {
+                "n": "Tiêu chảy do ngộ độc thức ăn",
+                "s": "Miệng nôn, trôn tháo, đi ngoài nhiều lần, phân lỏng, đau quặn bụng.",
+                "t": "Giải độc bằng than hoạt tính hoặc đường glucose + kháng sinh đường ruột + giảm đau cơ trơn + cầm tiêu chảy + men tiêu hóa.",
+                "p": {
+                    "Người bình thường": [
+                        ["Cloroxit 250mg 4 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Loperamide 4 viên/2 lần", "Lactomin 2 gói/2 lần", "Đường glucose"],
+                        ["Biseptol 480mg 4 viên/2 lần", "Spasmaverine 40mg 4 viên/2 lần", "Bermoric 4 viên/2 lần", "Bioacemin 2 viên/2 lần", "Đường glucose"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Biseptol 480mg 4 viên/2 lần", "Spasmaverine 40mg 4 viên/2 lần", "Loperamide 4 viên/2 lần", "Biotic multi 2 gói/2 lần", "Đường glucose"],
+                        ["Metronidazol 500mg 4 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Bermoric 4 viên/2 lần", "Eternamozol 2 gói/2 lần", "Đường glucose"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Loperamide 4 viên/2 lần", "Enterogermine 2 ống/2 lần", "Đường glucose"],
+                        ["Ampicillin 500mg 4 viên/2 lần", "Spasmaverine 40mg 4 viên/2 lần", "Eternamozol 2 gói/2 lần", "Đường glucose"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Metronidazol 250mg 4 viên/2 lần", "Spasmaverine 40mg 4 viên/2 lần", "Loperamide 4 viên/2 lần", "Biophanew 2 gói/2 lần", "Đường glucose"],
+                        ["Biseptol 480mg 4 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Hidrasec 30mg 2 gói/2 lần", "Bioacemin 2 viên/2 lần", "Đường glucose"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Mộc hoa trắng 2 viên/2 lần", "Nospa 40mg 2 viên/2 lần", "Loperamide 2 viên/2 lần", "Enterogermine 2 ống/2 lần", "Đường glucose"],
+                        ["Biseptol 480mg 2 viên/2 lần", "Spasmaverine 40mg 2 viên/2 lần", "Loperamide 2 viên/2 lần", "Bioacemin 2 viên/2 lần", "Đường glucose"]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "tiet_nieu",
+        "name": "Tiết Niệu, Sinh Dục",
+        "diseases": [
+            {
+                "n": "Viêm đường tiết niệu, bàng quang",
+                "s": "Đái dắt, đái buốt, đái đục, đái máu hồng, đau quặn bụng, bí tiểu.",
+                "t": "Kháng sinh kị khí, Quinolon + giảm đau cơ trơn + sát khuẩn đường tiết niệu (Xanh Methylene) + Vitamin C liều cao + trà râu ngô, bông mã đề lợi tiểu.",
+                "p": {
+                    "Người bình thường": [
+                        ["Nanidixic 500mg 4 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Mifasoblue (Xanh Me) 8 viên/2 lần", "Upa C 1g 1 viên/1 lần", "Trà râu ngô"],
+                        ["Fefloxacin 400mg 2 viên/2 lần", "Spasmaverine 40mg 4 viên/2 lần", "Mifasoblue (Xanh Me) 8 viên/2 lần", "Vitamin C 500mg 2 viên/2 lần", "Furocemid 40mg 1 viên/ngày"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Metronidazol 250mg 4 viên/2 lần", "Spasmaverine 40mg 4 viên/2 lần", "Mifasoblue (Xanh Me) 8 viên/2 lần", "Rutin C 6 viên/2 lần", "Trà râu ngô"],
+                        ["Fefloxacin 400mg 2 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Mifasoblue (Xanh Me) 8 viên/2 lần", "Vitamin C 500mg 2 viên/2 lần", "Furocemid 40mg 1 viên/ngày"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Zinnat (cefuroxim) 500mg 2 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Vitamin C 1g 1 viên/1 lần", "Bông mã đề"],
+                        ["Augmentin 1g 2 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Vitamin C 500mg 2 viên/2 lần", "Furocemid 40mg 1 viên/ngày"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Biseptol 480mg 4 viên/2 lần", "Spasmaverine 40mg 4 viên/2 lần", "Mifasoblue (Xanh Me) 8 viên/2 lần", "Rutin C 6 viên/2 lần", "Bông mã đề"],
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Mifasoblue (Xanh Me) 8 viên/2 lần", "Vitamin C 1g 1 viên/1 lần", "Furocemid 40mg 1 viên/1 lần/ngày"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Mộc hoa trắng 2 viên/2 lần", "Nospa 40mg 2 viên/2 lần", "Upa C 1g 1 viên/1 lần", "Trà râu ngô"],
+                        ["Klamentin 625mg 2 viên/2 lần", "Spasmaverine 40mg 2 viên/2 lần", "Vitamin C 500mg 2 viên/2 lần", "Furocemid 40mg 1 viên/ngày"]
+                    ]
+                }
+            },
+            {
+                "n": "Viêm lỗ hậu môn",
+                "s": "Đi ngoài phân bình thường, đi ra máu tươi không có hiện tượng bị trĩ, đau rát sau khi đi vệ sinh.",
+                "t": "Kháng sinh kị khí + giảm đau cơ trơn + cầm máu + Vitamin C + men tiêu hóa + ngâm rửa PVP + bôi kháng sinh tại chỗ viêm.",
+                "p": {
+                    "Người bình thường": [
+                        ["Tinidazol 500mg 4 viên/2 lần", "Spasmaverine 40mg 4 viên/2 lần", "Transatin 500mg 4 viên/2 lần", "Upa C 1g 1 viên/1 lần", "Lactomin 2 gói/2 lần", "PVP", "Tetracylin bôi"],
+                        ["Biseptol 480mg 4 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Transatin 500mg 4 viên/2 lần", "Vitamin C 500mg 4 viên/2 lần", "Biotic 3-4g/ngày", "PVP", "Protolog bôi"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Metronidazol 250mg 4 viên/2 lần", "Spasmaverine 40mg 4 viên/2 lần", "Trasatin 500mg 4 viên/2 lần", "Rutin C 6 viên/2 lần", "Biophanew 2 gói/2 lần", "PVP", "Chlorocina – H bôi"],
+                        ["Tinidazol 500mg 4 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Trasatin 500mg 4 viên/2 lần", "Vitamin C 1g 1 viên/1 lần", "Biolac 2-4g/2 lần", "Oxi già", "Tetracylin bôi"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Klamentin 1g 2 viên/1 lần", "Nospa 40mg 4 viên/2 lần", "Trasatin 500mg 4 viên/2 lần", "Vitamin C 1g 1 viên/1 lần", "Enterogermine 2 ống/2 lần", "PVP", "Protolog bôi"],
+                        ["Augmentin 1g 2 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Trasatin 500mg 4 viên/2 lần", "Vitamin C 500mg 4c", "Bioacemin 2 viên/2 lần", "Oxi già", "Chlorocima – H bôi"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Sulfaganin 500mg 4 viên/2 lần", "Nospa 40mg 4 viên/2 lần", "Trasatin 500mg 4 viên/2 lần", "Vitamin C 1g 1 viên/1 lần", "Biotic multi 2 gói/2 lần", "PVP", "Protolog bôi"],
+                        ["Metronidazol 500mg 2 viên/2 lần", "Spasmaverine 40mg 2 viên/2 lần", "Trasatin 500mg 2 viên/2 lần", "Vitamin C 500mg 2 viên/2 lần", "Eternamozol 2 gói/2 lần", "Oxi già", "Tetracylin bôi"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Mộc hoa trắng 2 viên/2 lần", "Nospa 40mg 2 viên/2 lần", "Trasatin 500mg 2 viên/2 lần", "Rutin C 4 viên/2 lần", "Enterogermine 2 ống/2 lần", "PVP", "Protolog bôi"],
+                        ["Biseptol 480mg 2 viên/2 lần", "Spasmaverine 40mg 2 viên/2 lần", "Transatin 500mg 2 viên/2 lần", "Vitamin C 500mg 2 viên/2 lần", "Bioacemin 2 viên/2 lần", "Oxy già", "Tetracyclin bôi"]
+                    ]
+                }
+            },
+            {
+                "n": "Trĩ nội, trĩ ngoại",
+                "s": "Đi ngoài ra máu tươi, đau, buốt.",
+                "t": "Rửa + bôi Protolog + đặt Protolog + Rutin C + bổ sung chất xơ + nhuận tràng + chữa trĩ thảo dược + Daflor (suy tĩnh mạch).",
+                "p": {
+                    "Người bình thường": [
+                        ["Rửa PVP", "Bôi Protolog", "Đặt Protolog", "Rutin C 6 viên/2 lần", "Vitan 1 2 viên/2 lần", "Duphalac 2g/2lần", "Daflor 500mg 4 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Rửa PVP", "Bôi Protolog", "Đặt Protolog", "Rutin C 6 viên/2 lần", "Vitan 1 2 gói/2 lần", "Thông táo hoa linh siro 15ml/2 lần", "Daflor 500mg 4 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Rửa PVP", "Bôi Protolog", "Đặt Protolog", "Rutin C 6 viên/2 lần", "Santafe 2 viên/2 lần", "Nhuận Táo PV 15ml/2 lần", "Daflor 500mg 4 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Rửa PVP", "Bôi Protolog", "Đặt Protolog", "Rutin C 6 viên/2 lần", "Santafe 2 viên/2 lần", "Sorbitol 5mg 2 gói/2 lần", "Daflor 500mg 4 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Nấm phần phụ nữ giới",
+                "s": "Ngứa bên trong và bên ngoài, ra bọt khí hư màu trắng như bã đậu.",
+                "t": "Rửa bằng nước TB hoặc PVP pha loãng + đặt thuốc chống nấm + uống thuốc Ketoconazol/Fluconazol + bôi thuốc chống nấm.",
+                "p": {
+                    "Người bình thường": [
+                        ["Rửa bằng PVP pha loãng", "Fluconazol 150mg 4 viên/2 lần", "Clotrimazol đặt 1 viên/1 lần buổi tối", "Nizoral bôi"],
+                        ["Nước rửa TB", "Ketoconazol 200mg 4 viên/2 lần", "Canestan đặt 1 viên/1 lần buổi tối", "Tomax bôi"]
+                    ]
+                }
+            },
+            {
+                "n": "Nấm của nam giới",
+                "s": "Ngứa phần phụ, mẫn đỏ.",
+                "t": "Rửa TB hoặc PVP pha loãng + bôi các thuốc chữa nấm + uống các thuốc Ketoconazol hoặc Fluconazol.",
+                "p": {
+                    "Người bình thường": [
+                        ["Rửa bằng PVP pha loãng", "Fluconazol 250mg 4 viên/2 lần", "Nizoral bôi"],
+                        ["Rửa bằng BT", "Ketoconazol 200mg 4 viên/2 lần", "Kentax bôi"]
+                    ]
+                }
+            },
+            {
+                "n": "Viêm cổ tử cung, viêm lộ tuyến, viêm nhiễm",
+                "s": "Đau bụng dưới, ra khí hư vàng đục xanh như gỉ mủ, hôi tanh khắm.",
+                "t": "Rửa vệ sinh + đặt bên trong phần phụ + uống kháng sinh + chống viêm + giảm đau.",
+                "p": {
+                    "Người bình thường": [
+                        ["Ciprofloxacin 500mg 4 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Patamol 500mg 4 viên/2 lần", "Lactacyd rửa", "Utrogestan đặt 1 viên buổi tối"],
+                        ["Tinidazol 500mg 4 viên/2 lần", "Lysozim 90mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Dạ Hương rửa", "Mycogynax đặt 1 viên tối"]
+                    ]
+                }
+            },
+            {
+                "n": "Rối loạn kinh nguyệt / Phụ nữ rong kinh",
+                "s": "Kinh nguyệt không đều, rong kinh.",
+                "t": "Cao Ích Mẫu, Phụ Huyết Khang, thuốc tránh thai hàng ngày. Điều trị rong kinh: Sắt + Rutin C + Transamin.",
+                "p": {
+                    "Người bình thường": [
+                        ["Cao Ích Mẫu / Phụ Huyết Khang / Viên tránh thai"],
+                        ["Sắt", "Rutin C", "Transamin", "Điều hòa kinh nguyệt"]
+                    ]
+                }
+            },
+            {
+                "n": "Bệnh lậu, giang mai",
+                "s": "Có mủ đặc quánh chảy ra, đau buốt, sưng đỏ, sốt, mọc mụn lốm đốm trên da lở loét.",
+                "t": "Kháng sinh mạnh (Quinolon) + chống viêm Corticoid + giảm sốt giảm đau + rửa + bôi thuốc (10 ngày liên tục). Tăng hệ miễn dịch.",
+                "p": {
+                    "Người bình thường": [
+                        ["Nalidixic 500mg 4 viên/2 lần", "Prednisolon 5mg 4 viên/2 lần", "Panadol Extra 500mg 4 viên/2 lần", "Thymodulin 80mg 2 viên/2 lần", "Rửa PVP", "Untracomb bôi"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Clarythromycin 500mg 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Panadol 500mg 4 viên/2 lần", "Thymodulin 80mg 2 viên/2 lần", "Rửa TB", "Gentrison bôi"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Augmentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Patamol 500mg 4 viên/2 lần", "Thymodulin 80mg 2 viên/2 lần", "Rửa TB", "Nystatin bôi"]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "viem_cau_than",
+        "name": "Bệnh Viêm Cầu Thận Cấp",
+        "diseases": [
+            {
+                "n": "Viêm cầu thận cấp",
+                "s": "Đau thắt lưng phải, đi tiểu ra máu hoặc đục, ù tai, người mệt.",
+                "t": "Kháng sinh + chống viêm Corticoid + bông mã đề hoặc thuốc cầm máu + hoạt huyết dưỡng não + 3B + Vitamin C liều cao + bổ thận.",
+                "p": {
+                    "Người bình thường": [
+                        ["Ofloxacin 200mg 2 viên/2 lần", "Methyl Prednisolon 4mg 4 viên/2 lần", "Trasatin 500mg 4 viên/2 lần", "HH Ginkovimax 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin C 1g 1 viên/1 lần", "Xích thố vương 2 viên/2 lần"],
+                        ["Ciprofloxacin 500mg 2 viên/2 lần", "Dexamethasol 5mg 4 viên/2 lần", "Trasatin 500mg 4 viên/2 lần", "HH Traphaco 4 viên/2 lần", "3B 2 viên/2 lần", "Vitamin C 500mg 2 viên/2 lần", "Sâm Alipas 2 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Metronidazol 250mg 4 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Trasatin 500mg 4 viên/2 lần", "HH thái dương 2 viên/2 lần", "3B 2 viên/2 lần", "Rutin C 6 viên/2 lần", "Rocket 2 viên/2 lần"],
+                        ["Amoxccillin 500mg 4 viên/2 lần", "Clarythromycin 500mg 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Minh Não Khang 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin C 1g 1 viên/1 lần", "Bổ thận âm Nhất nhất"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Klamentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Trasatin 500mg 4 viên/2 lần", "HH Ginkoba 2 viên/2 lần", "3B 2 viên/2 lần", "Upa C 1g 1 viên/1 lần", "Bổ thận âm 2 viên/2 lần"],
+                        ["Augmentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Trasatin 500mg 4 viên/2 lần", "Ginkovimax 2 viên/2 lần", "3B 2 viên/2 lần", "Rutin C 4 viên/2 lần", "Bổ thận âm NN 2 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Tinidazol 500mg 4 viên/2 lần", "Dexamethason 5mg 4 viên/2 lần", "Trasatin 500mg 4 viên/2 lần", "HHDN CM3 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin C 500mg 2 viên/2 lần", "Cường dược 2 viên/2 lần"],
+                        ["Zinnat 500mg 2 viên/2 lần", "Lysozim 90mg 4 viên/2 lần", "Trasatin 500mg 2 viên/2 lần", "HH CM3 6 viên/2 lần", "3B 2 viên/2 lần", "Vitamin C 500mg 2 viên/2 lần", "Sâm Alipas 2 viên/2 lần"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Azithromycin 250mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Trasatin 500mg 2 viên/2 lần", "3B 2 viên/2 lần", "Vitamin C 250mg 2 viên/2 lần"]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "suy_gan",
+        "name": "Bệnh Suy Gan",
+        "diseases": [
+            {
+                "n": "Suy giảm chức năng gan do bia rượu",
+                "s": "Chán ăn, mệt mỏi, đau hạ sườn phải ấn tức, con ngươi vàng, vàng tay, vàng da, nước tiểu màu sẫm, hay nổi mẫn ngứa.",
+                "t": "Giảm đau cơ trơn + bổ gan + thanh nhiệt giải độc + 3B + kháng Histamin ngắn ngày.",
+                "p": {
+                    "Người bình thường": [
+                        ["Nospa 40mg 4 viên/2 lần", "Chức năng gan Bảo Nguyên 2 viên/2 lần", "Diệp hạ châu 4 viên/2 lần", "3B 2 viên/2 lần", "Clorampheniramin 4mg 2 viên/2 lần"],
+                        ["Spasmeverine 40mg 4 viên/2 lần", "Eganin 2 viên/2 lần", "Thanh nhiệt tiêu độc 4 viên/2 lần", "3B 2 viên/2 lần", "Fexofenadine 80mg 2 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Spasmeverine 40mg 4 viên/2 lần", "Eganin 2 viên/2 lần", "Thanh nhiệt tiêu độc 4 viên/2 lần", "3B 2 viên/2 lần", "Alimemazin 5mg 4 viên/2 lần"],
+                        ["Nospa 40mg 4 viên/2 lần", "Arginin 2 viên/2 lần", "Dưỡng can linh 4 viên/2 lần", "3b 2 viên/2 lần", "Citirizine 10mg 2 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Nospa 40mg 2 viên/2 lần", "Arginin 2 viên/2 lần", "Tiêu độc PV 6 viên/2 lần", "3B 2 viên/2 lần", "Fexofenadine 180mg 1 viên/1 lần"],
+                        ["Spasmeverine 40mg 2 viên/2 lần", "Eganin 2 viên/2 lần", "Thanh nhiệt tiêu độc 4 viên/2 lần", "3B 2 viên/2 lần", "Citirizine 10mg 2 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Nospa 40mg 4 viên/2 lần", "Gadamax 800mg 2 viên/2 lần", "Hepagan sr 30ml/2 lần", "3B 2 viên/2 lần", "Lorotadyl 10mg 2 viên/2 lần"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Nospa 40mg 2 viên/2 lần", "3B 2 viên/2 lần", "RB 25 2 viên/2 lần", "Hepagan sr 10ml/2 lần", "Clorpheniramin 2mg"]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "di_ung",
+        "name": "Bệnh Dị Ứng",
+        "diseases": [
+            {
+                "n": "Dị ứng do mọi nguyên nhân",
+                "s": "Mẫn ngứa, nổi mề đay, ngứa khắp nơi.",
+                "t": "Kháng Histamin + vitamin C + thanh nhiệt tiêu độc.",
+                "p": {
+                    "Người bình thường": [
+                        ["Cloramphenicol 4mg 4 viên/2 lần", "Upa C sủi 1g 1 viên/1 lần", "Maranta 4 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Alimemazin 5mg 4 viên/2 lần", "Rutin C 4 viên/2 lần", "Diệp Hạ Châu 4 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Fexofenadine 120mg 1 viên/1 lần", "Vitamin C 1g 1 viên/1 lần", "Hepagan sr 15ml/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Peritol 4mg 4 viên/2 lần", "Cadamin C 500mg 2 viên/2 lần", "Maranta 4 viên/2 lần"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Promethazin sr 10ml/2 lần", "Vitamin C 250mg 2 viên/2 lần", "Thanh nhiệt MP.Sutton 10ml/2 lần"]
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "da_lieu",
+        "name": "Bệnh Ngoài Da",
+        "diseases": [
+            {
+                "n": "Bệnh thủy đậu",
+                "s": "Mọc mụn trên da (lây khắp người) mọc cả trên đầu, trong họng, đầu có bọng nước, ngứa, đau, sưng, viêm tấy đỏ.",
+                "t": "Bôi xanh Methylen + 1 v Rifampicin hoặc Acyclovir + uống Acyclovir + kháng sinh + chống viêm + B2 + kháng Histamin + hạ sốt + vitamin C.",
+                "p": {
+                    "Người bình thường": [
+                        ["Azithromycin 500mg 1 viên/1 lần", "Lysozym 90mg 4 viên/2 lần", "B2 4 viên/2 lần", "Clorpheniramin 4mg 4 viên/2 lần", "Paracetamol 500mg 4 viên/2 lần", "Vitamin C 500mg 2 viên/2 lần", "Acyclovir bôi", "Xanh Methylen + 1 viên Rifampicin"],
+                        ["Amoxcillin 500mg 4 viên/2 lần", "Vitamin C 1g 1 viên/1 lần", "Alpha choay 5mg 4 viên/2 lần", "B2 4 viên/2 lần", "Tatrarax 4mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần", "Acyclovir bôi", "Xanh methylen + 1 viên Rifampicin"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Clarythromycin 500mg 2 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "B2 4 viên/2 lần", "Alimemazin 5mg 4 viên/2 lần", "Paracetamol 500mg 4 viên/2 lần", "Rutin C 4 viên/2 lần", "Aclyclovir bôi", "Xanh methylen +1 viên Rifampicin"],
+                        ["Cefadroxin 500mg 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "B2 4mg 4 viên/2 lần", "Loratydyl 10mg 2 viên/2 lần", "Panadol 500mg 4 viên/2 lần", "Vitamin C 500mg 2 viên/2 lần", "Acyclovir 80mg 2 viên/2 lần", "Xanh methylen + 1v Rifampicin"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Augmentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "B2 4 viên/2 lần", "Fexofenadin 120mg 1 viên/1 lần", "Rutin C 1g 1 viên/1 lần", "Acyclovir 200mg 4 viên/2 lần", "Xanh methylen + 1 viên Rifampicin"],
+                        ["Klamentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "B2 4 viên/2 lần", "Cetirizine 10mg 2 viên/2 lần", "Panadol 500mg 4 viên/2 lần", "Vitamin C 500mg 2 viên/2 lần", "Acyclovir bôi", "Acyclovir 800mg 2 viên/2 lần", "Xanh methylen +1v Rifampicin"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Cefixim 200mg 2 viên/2 lần", "Lysozym 90mg 4 viên/2 lần", "B2 4 viên/2 lần", "Loratydyl 10mg 2 viên/2 lần", "Efferalgan sủi 500mg 1 viên/1 lần", "Vitamin C 500mg 2 viên/2 lần", "Acyclovir 200mg 8 viên/2 lần", "Aclyclovir bôi", "Xanh methylen +1v Rifampicin"],
+                        ["Amoxcillin 500mg 2 viên/2 lần", "Seratiol speptid 10mg 2 viên/2 lần", "B2 4 viên/2 lần", "Desloratadyl 10mg 2 viên/2 lần", "Paracetamol 500mg 2 viên/2 lần", "Vitamin C 500mg 2 viên/2 lần", "Acyclovir 200mg 8 viên/2 lần", "Acyclovir bôi", "Xanh methylen +1v Rifampicin"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Cefuroxim 250mg 2 viên/2 lần", "Vitamin C 500mg 1 viên/1 lần", "Alpha choay 5mg 2 viên/2 lần", "B2 2 viên/2 lần", "Promethazin sr 5ml/2 lần", "Hapacol 500mg 2 viên/2 lần", "Acyclovir 200mg 4 viên/2 lần", "Acylovir bôi", "Xanh methylen + 1v Rifampicin"],
+                        ["Ampicillin 500mg 2 viên/2 lần", "Seratiol speptid 10mg 2 viên/2 lần", "B2 2 viên/2 lần", "Loratadyl sr 5ml/2 lần", "Partamol 250mg 2 viên/2 lần", "Rutin C 1g 1 viên/1 lần", "Acyclovir 200mg 4 viên/2 lần", "Acyclovir bôi", "Xanh methylen +1v Rifampicin"]
+                    ]
+                }
+            },
+            {
+                "n": "Zona thần kinh (Herpes)",
+                "s": "Nổ rộp trên da có hình que dài, cảm giác bỏng rát, đau giần giật, đỏ ửng, mọc trên môi, mắt, mặt, cổ, tay.",
+                "t": "Bôi hồ nước / Acyclovir + uống Acyclovir + Vitamin C + B2 + kháng sinh + chống viêm + giảm đau.",
+                "p": {
+                    "Người bình thường": [
+                        ["Bôi hồ nước khi chưa vỡ", "Bôi Acyclovir", "Acyclovir 800mg 2 viên/2 lần", "Vitamin C 1g 1 viên/1 lần", "B2 4 viên/2 lần", "Nếu bội nhiễm: Azithromycin 500mg 1 viên/1 lần", "Lysozym 90mg 4 viên/2 lần", "Efferalgan sủi 500mg 1 viên/1 lần"],
+                        ["Clarythromycin 500mg 2 viên/2 lần", "Betamethason 500mg 4 viên/2 lần", "Paracetamol 500mg 4 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Bôi hồ nước khi chưa vỡ", "Bôi Acyclovir", "Acyclovir 800mg 2 viên/2 lần", "Vitamin C 1g 1 viên/1 lần", "B2 4 viên/2 lần", "Nếu bội nhiễm: Clarythromycin 500mg 2 viên/2 lần", "Seratiol speptid 10mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần"],
+                        ["Amoxcillin", "Apha choay", "Paracetamol"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Bôi hồ nước", "Bôi Acyclovir", "Acyclovir 800mg 2 viên/2 lần", "Vitamin C 1g 1 viên/1 lần", "B2 4 viên/2 lần", "Nếu bội nhiễm: Klamentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Hapacol 500mg 4 viên/2 lần"],
+                        ["Augmentin 1g 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Paracetamol 500mg 4 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Bôi hồ nước", "Bôi Acyclovir", "Acyclovir 800mg 2 viên/2 lần", "Vitamin C 1g 1 viên/1 lần", "B2 4 viên/2 lần", "Nếu bội nhiễm: Cefixim 200mg 2 viên/1 lần", "Lysozym 90mg 2 viên/2 lần", "Panadol 500mg 2 viên/2 lần"],
+                        ["Amoxcillin 500mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Hapacol 500mg 2 viên/2 lần"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Bôi hồ nước", "Bôi Acyclovir", "Acyclovir 800mg 2 viên/2 lần", "Vitamin C 1g 1 viên/1 lần", "B2 4 viên/2 lần", "Nếu bội nhiễm: Cefuroxim 250mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Panadol 500mg 2 viên/2 lần"],
+                        ["Ampicillin 500mg 2 viên/2 lần", "Lysozym 90mg 2 viên/2 lần", "Paracetamol 500mg 2 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Kiến cắn, ong đốt",
+                "s": "Mẩn đỏ, ngứa, đau rát cục bộ.",
+                "t": "Bôi thuốc Corticoid + kháng Histamin + chống viêm + Vitamin C + thanh nhiệt tiêu độc.",
+                "p": {
+                    "Người bình thường": [
+                        ["Bôi Gentrison", "Cetirizine 5mg 4 viên/2 lần", "Prednisolon 5mg 4 viên/2 lần", "Vitamin C 500mg 2 viên/2 lần", "Thanh nhiệt tiêu độc 4 viên/2 lần"]
+                    ],
+                    "Người viêm loét dạ dày": [
+                        ["Bôi Gentrideeme", "Loratadyl 10mg 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Rutin C 2 viên/2 lần", "Tiêu độc PV 8 viên/2 lần"]
+                    ],
+                    "Người già 80 tuổi": [
+                        ["Bôi Flucina", "Desloratadyl 10mg 2 viên/2 lần", "Lysozym 90mg 2 viên/2 lần", "Vitamin C 500mg 2 viên/2 lần", "Tiêu độc PV 4 viên/2 lần"]
+                    ],
+                    "Phụ nữ có thai": [
+                        ["Bôi Trangala", "Cetirizine 10mg 2 viên/2 lần", "Alpha choay 5mg 4 viên/2 lần", "Rutin C 4 viên/2 lần", "Hepagan sr 15ml x2-3 lần/ngày"]
+                    ],
+                    "Trẻ em 7 tuổi": [
+                        ["Bôi Cotebios", "Clorpheniramin 2mg 2 viên/2 lần", "Alpha choay 5mg 2 viên/2 lần", "Vitamin C 500mg 2 viên/2 lần", "Thanh nhiệt tiêu độc 2 viên/2 lần"]
+                    ]
+                }
+            },
+            {
+                "n": "Bệnh nấm, hắc lào",
+                "s": "Ngứa, nấm có hình tròn như đồng xu, có màu nâu hoặc hồng nhạt.",
+                "t": "Bôi thuốc nấm + uống thuốc nấm.",
+                "p": {
+                    "Mọi đối tượng": [
+                        ["Bôi Ketoconazol / Nirozal / Tomax / Kentax / BSI", "Uống Ketoconazol / Nirozal"]
+                    ]
+                }
+            },
+            {
+                "n": "Điều trị trứng cá, mụn bọc",
+                "s": "Viêm, đỏ, có mủ, mọc nhiều ở mặt, lưng.",
+                "t": "Kháng sinh da + Biotin + Myspa + L-Cystine + Bổ gan + Thanh nhiệt + Vitamin C + Bôi Erythromycin.",
+                "p": {
+                    "Tháng 1 (Uống đầy đủ)": [
+                        ["Clarythromycin 500mg 2 viên/2 lần", "Biotin 4 viên/2 lần", "Myspa 4 viên/2 lần", "L-cystine 2 viên/2 lần", "Fortec 4 viên/2 lần", "Thanh nhiệt tiêu độc 4 viên/2 lần", "Vitamin C 2 viên/2 lần", "Bôi Erythromycin"]
+                    ],
+                    "Tháng 2 (Duy trì)": [
+                        ["Biotin", "L-Cystine", "Bổ gan", "Thanh nhiệt tiêu độc"]
+                    ]
+                }
+            },
+            {
+                "n": "Điều trị bỏng",
+                "s": "Phồng rộp, rát đỏ do bỏng.",
+                "t": "Làm dịu vết bỏng bằng các sản phẩm dạng xịt hoặc bôi ngoài.",
+                "p": {
+                    "Sản phẩm khuyên dùng": [
+                        ["Xịt Panthenol", "Bôi con ong", "Bôi Panthenol", "Bôi dầu gan cá", "Dầu gấc"]
+                    ]
+                }
+            },
+            {
+                "n": "Điều trị nấm da đầu",
+                "s": "Gàu nhiều, ngứa, rụng tóc.",
+                "t": "Kết hợp bôi, uống và gội.",
+                "p": {
+                    "Phác đồ": [
+                        ["Bôi Dibetalic", "Uống Ketoconazol", "Gội Nyrozal, Selsun"]
+                    ]
+                }
+            },
+            {
+                "n": "Chàm, dị ứng trẻ sơ sinh, hăm, nẻ",
+                "s": "Da khô, mẩn đỏ, ngứa ở trẻ sơ sinh.",
+                "t": "Dùng thuốc bôi (Eumovate, Gentrison...) + kết hợp uống kháng Histamin (Phenergan, Theralen...).",
+                "p": {
+                    "Sản phẩm khuyên dùng": [
+                        ["Bôi: Eumovate / Gentrison / Flucinaz / Skinbibi / Bepanthen", "Uống Phenergan: Dưới 5 tuổi 5ml/lần x3 lần/ngày"]
+                    ]
+                }
+            }
+        ]
+    }
+];
+
+    // Render logic
+    const categoryList = document.getElementById('categoryList');
+    const gridContainer = document.getElementById('gridContainer');
+    const detailPanel = document.getElementById('detailPanel');
+
+    // Khởi tạo sidebar
+    function init() {
+        db.forEach((cat, index) => {
+            let li = document.createElement('li');
+            li.innerHTML = `${cat.name}`; // Đã loại bỏ số đếm
+            li.onclick = () => renderGrid(index, li);
+            if(index === 0) {
+                li.classList.add('active');
+                renderGrid(index, li);
+            }
+            categoryList.appendChild(li);
+        });
+    }
+
+    // Render danh sách bệnh theo nhóm
+    function renderGrid(catIndex, liElement) {
+        document.querySelectorAll('.category-list li').forEach(el => el.classList.remove('active'));
+        if(liElement) liElement.classList.add('active');
+
+        detailPanel.style.display = 'none';
+        gridContainer.style.display = 'grid';
+        gridContainer.innerHTML = '';
+
+        const diseases = db[catIndex].diseases;
+        diseases.forEach((dis, dIndex) => {
+            let card = document.createElement('div');
+            card.className = 'disease-card';
+            card.innerHTML = `
+                <h3>${dis.n}</h3>
+                <p><strong>Triệu chứng:</strong> ${dis.s}</p>
+            `;
+            card.onclick = () => showDetail(catIndex, dIndex);
+            gridContainer.appendChild(card);
+        });
+    }
+
+    // Hiển thị chi tiết bệnh (Detail Panel)
+    function showDetail(catIndex, dIndex) {
+        gridContainer.style.display = 'none';
+        detailPanel.style.display = 'block';
+
+        const dis = db[catIndex].diseases[dIndex];
+        document.getElementById('dName').innerText = dis.n;
+        document.getElementById('dSymptoms').innerText = dis.s;
+        document.getElementById('dTreatment').innerText = dis.t;
+
+        const patientTabs = document.getElementById('patientTabs');
+        patientTabs.innerHTML = '';
+        
+        let firstPatient = null;
+        for(let pName in dis.p) {
+            if(!firstPatient) firstPatient = pName;
+            let btn = document.createElement('button');
+            btn.className = 'patient-btn';
+            btn.innerText = pName;
+            btn.onclick = () => renderPrescriptions(dis.p, pName, btn);
+            patientTabs.appendChild(btn);
+        }
+
+        if(firstPatient) {
+            patientTabs.firstChild.click();
+        } else {
+            document.getElementById('prescriptionContainer').style.display = 'none';
+        }
+    }
+
+    // Cơ chế phân tách hiển thị Đơn 1, Đơn 2 siêu chuẩn chống nhầm lẫn
+    function renderPrescriptions(patientsData, patientName, btnElement) {
+        document.querySelectorAll('.patient-btn').forEach(el => el.classList.remove('active'));
+        btnElement.classList.add('active');
+
+        document.getElementById('prescriptionContainer').style.display = 'block';
+        const donTabs = document.getElementById('donTabs');
+        const donContentArea = document.getElementById('donContentArea');
+        
+        donTabs.innerHTML = '';
+        donContentArea.innerHTML = '';
+
+        const prescs = patientsData[patientName];
+        
+        prescs.forEach((drugs, index) => {
+            // Phân tách số lượng Đơn / Phác đồ
+            let btnDon = document.createElement('button');
+            btnDon.className = 'prescription-btn';
+            
+            // Xử lý tiêu đề tab (Đơn 1, Tháng 1...)
+            let donTitle = `Đơn ${index + 1}`;
+            if (Array.isArray(patientsData) === false && !patientName.includes("Người") && !patientName.includes("Phụ nữ") && !patientName.includes("Trẻ") && !patientName.includes("Mọi") && patientName.includes("Tháng")) {
+                 donTitle = "Phác đồ"; // Cho trường hợp mụn trứng cá (Tháng 1, Tháng 2)
+            }
+            
+            btnDon.innerText = donTitle;
+            
+            // Danh sách thuốc
+            let ul = document.createElement('ul');
+            ul.className = 'drug-list';
+            ul.id = `drugList_${index}`;
+            drugs.forEach(d => {
+                let li = document.createElement('li');
+                li.innerText = d;
+                ul.appendChild(li);
+            });
+            donContentArea.appendChild(ul);
+
+            // Sự kiện click cách ly từng đơn
+            btnDon.onclick = () => {
+                document.querySelectorAll('.prescription-btn').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.drug-list').forEach(el => el.classList.remove('active'));
+                btnDon.classList.add('active');
+                ul.classList.add('active');
+            };
+            donTabs.appendChild(btnDon);
+        });
+
+        if(donTabs.firstChild) {
+            donTabs.firstChild.click();
+        }
+    }
+
+    function hideDetail() {
+        detailPanel.style.display = 'none';
+        gridContainer.style.display = 'grid';
+    }
+
+    function handleSearch() {
+        const keyword = document.getElementById('searchInput').value.toLowerCase();
+        if(!keyword) {
+            const activeLi = document.querySelector('.category-list li.active');
+            const catIndex = Array.from(categoryList.children).indexOf(activeLi);
+            if(catIndex >= 0) renderGrid(catIndex, activeLi);
+            return;
+        }
+
+        detailPanel.style.display = 'none';
+        gridContainer.style.display = 'grid';
+        gridContainer.innerHTML = '';
+
+        db.forEach((cat, cIdx) => {
+            cat.diseases.forEach((dis, dIdx) => {
+                if(dis.n.toLowerCase().includes(keyword) || dis.s.toLowerCase().includes(keyword)) {
+                    let card = document.createElement('div');
+                    card.className = 'disease-card';
+                    card.innerHTML = `
+                        <div style="font-size:0.85rem; color:#888; margin-bottom:8px; font-weight:600;">📁 ${cat.name}</div>
+                        <h3>${dis.n}</h3>
+                        <p><strong>Triệu chứng:</strong> ${dis.s}</p>
+                    `;
+                    card.onclick = () => {
+                        document.querySelectorAll('.category-list li').forEach(el => el.classList.remove('active'));
+                        showDetail(cIdx, dIdx);
+                    };
+                    gridContainer.appendChild(card);
+                }
+            });
+        });
+    }
+
+    window.onload = init;
+</script>
+
+</body>
+</html>
